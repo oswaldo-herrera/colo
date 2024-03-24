@@ -1,0 +1,88 @@
+<!-- Segundo HTML: confirmados.html -->
+
+{% extends "dashboard/index.html" %}
+
+{% block title %}Bandeja|Confirmados{% endblock title %}
+
+{% block extra_css %}
+<!-- Aquí puedes cargar cualquier CSS adicional que necesites -->
+{% endblock extra_css %}
+
+{% block topbar %}
+{% include "partials/topbar.html" with pagetitle="Control de confirmación" %}
+{% endblock topbar %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Solicitudes Confirmadas</h4>
+                <table id="tablaConfirmados" class="table dt-responsive nowrap table-hover">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Nombre</th>
+                            <th>Apellido Paterno</th>
+                            <th>Apellido Materno</th>
+                            
+                            <!-- Otros encabezados si es necesario -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in confirmados %}
+                            <tr id="usuario_{{ item.id }}" class="usuario-row">
+                                <td>{{item.email}}</td>
+                                <td>{{item.first_name | upper}}</td>
+                                <td>{{item.last_name | upper}}</td>
+                                <td>{{item.second_name | upper}}</td> 
+                            </tr>
+                        {% endfor %}
+                            
+                        <!-- Aquí se mostrarán los elementos confirmados -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Solicitudes Rechazadas</h4>
+                <table id="tablaConfirmados" class="table dt-responsive nowrap table-hover">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Nombre</th>
+                            <th>Apellido Paterno</th>
+                            <th>Apellido Materno</th>
+                            
+                            <!-- Otros encabezados si es necesario -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in rechazados %}
+                            <tr id="usuario_{{ item.id }}" class="usuario-row">
+                                <td>{{item.email}}</td>
+                                <td>{{item.first_name | upper}}</td>
+                                <td>{{item.last_name | upper}}</td>
+                                <td>{{item.second_name | upper}}</td> 
+                            </tr>
+                        {% endfor %}
+                            
+                        <!-- Aquí se mostrarán los elementos confirmados -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "partials/footer.html" %}
+
+{% endblock content %}
+
+{% block extra_js %}
+<!-- Aquí puedes cargar cualquier JS adicional que necesites -->
+{% endblock extra_js %}

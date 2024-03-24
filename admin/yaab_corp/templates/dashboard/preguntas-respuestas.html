@@ -1,0 +1,177 @@
+{% extends "dashboard/index.html" %}
+<!---->
+{% load static %}
+<!---->
+{% block title %}Preguntas y Respuestas{% endblock title %}
+<!---->
+{% block extra_css %}
+<!---->
+{% endblock extra_css %}
+<!---->
+{% block topbar %}
+<!---->
+{%include "partials/topbar.html" with pagetitle="Preguntas y Respuestas"%}
+<!---->
+{% endblock topbar %}
+<!---->
+{% block content %}
+
+<div class="row">
+  <div class="col-xl-12">
+    <div id="accordion" class="mb-3">
+      <div class="card mb-1">
+        <div class="card-header" id="headingOne">
+          <h5 class="m-0">
+            <a
+              class="text-dark"
+              data-bs-toggle="collapse"
+              href="#collapseOne"
+              aria-expanded="true"
+            >
+              <i class="mdi mdi-help-circle me-1 text-primary"></i>
+              What is Vakal text here?
+            </a>
+          </h5>
+        </div>
+
+        <div
+          id="collapseOne"
+          class="collapse show"
+          aria-labelledby="headingOne"
+          data-bs-parent="#accordion"
+        >
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+            terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+            skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+            Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+            single-origin coffee nulla assumenda shoreditch et. Nihil anim
+            keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+            sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+            occaecat craft beer farm-to-table, raw denim aesthetic synth
+            nesciunt you probably haven't heard of them accusamus labore
+            sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <div class="card mb-1">
+        <div class="card-header" id="headingTwo">
+          <h5 class="m-0">
+            <a
+              class="text-dark"
+              data-bs-toggle="collapse"
+              href="#collapseTwo"
+              aria-expanded="false"
+            >
+              <i class="mdi mdi-help-circle me-1 text-primary"></i>
+              Why use Vakal text here?
+            </a>
+          </h5>
+        </div>
+        <div
+          id="collapseTwo"
+          class="collapse"
+          aria-labelledby="headingTwo"
+          data-bs-parent="#accordion"
+        >
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+            terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+            skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+            Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+            single-origin coffee nulla assumenda shoreditch et. Nihil anim
+            keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+            sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+            occaecat craft beer farm-to-table, raw denim aesthetic synth
+            nesciunt you probably haven't heard of them accusamus labore
+            sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <div class="card mb-1">
+        <div class="card-header" id="headingThree">
+          <h5 class="m-0">
+            <a
+              class="text-dark"
+              data-bs-toggle="collapse"
+              href="#collapseThree"
+              aria-expanded="false"
+            >
+              <i class="mdi mdi-help-circle me-1 text-primary"></i>
+              How many variations exist?
+            </a>
+          </h5>
+        </div>
+        <div
+          id="collapseThree"
+          class="collapse"
+          aria-labelledby="headingThree"
+          data-bs-parent="#accordion"
+        >
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+            terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+            skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+            Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+            single-origin coffee nulla assumenda shoreditch et. Nihil anim
+            keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+            sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+            occaecat craft beer farm-to-table, raw denim aesthetic synth
+            nesciunt you probably haven't heard of them accusamus labore
+            sustainable VHS.
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-1">
+        <div class="card-header" id="headingFour">
+          <h5 class="m-0">
+            <a
+              class="text-dark"
+              data-bs-toggle="collapse"
+              href="#collapseFour"
+              aria-expanded="false"
+            >
+              <i class="mdi mdi-help-circle me-1 text-primary"></i>
+              What is Vakal text here?
+            </a>
+          </h5>
+        </div>
+        <div
+          id="collapseFour"
+          class="collapse"
+          aria-labelledby="collapseFour"
+          data-bs-parent="#accordion"
+        >
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+            terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+            skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+            Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+            single-origin coffee nulla assumenda shoreditch et. Nihil anim
+            keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+            sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+            occaecat craft beer farm-to-table, raw denim aesthetic synth
+            nesciunt you probably haven't heard of them accusamus labore
+            sustainable VHS.
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end #accordions-->
+  </div>
+  <!-- end col -->
+
+
+
+  <!-- end col-->
+</div>
+<!-- end row -->
+
+{% include "partials/footer.html" %}
+<!---->
+{% endblock content %}
+<!---->
+{% block extra_js %}
+<!---->
+{% endblock extra_js %}

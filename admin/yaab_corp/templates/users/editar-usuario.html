@@ -1,0 +1,848 @@
+{% load static %}
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Editar Usuario</h4>
+        <button type="button" class="close" data-bs-dismiss="modal">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>   
+
+      
+      <form
+        method="POST"
+        enctype="multipart/form-data"
+        action="{% url 'user_app:editar_usuarios' object.id %}"
+      >
+        {% csrf_token %}
+        <div class="modal-body">
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="usuario-tab" data-bs-toggle="tab" aria-current="page" href="#datos_personales">Datos Personales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="usuario-tab" data-bs-toggle="tab" aria-current="page" href="#direccion">Direccion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="usuario-tab" data-bs-toggle="tab" aria-current="page" href="#referencias">Referencias</a>
+                </li> 
+                 <li class="nav-item">
+                    <a class="nav-link" id="usuario-tab" data-bs-toggle="tab" aria-current="page" href="#comercio">Datos del Comercio</a>
+                </li> 
+                <li class="nav-item">
+                    <a class="nav-link" id="usuario-tab" data-bs-toggle="tab" aria-current="page" href="#datos_aval">Datos del Aval</a>
+                </li>            
+            </ul>
+
+            <div class="tab-content mt-2">
+                <div class="tab-pane fade active show mt-1" id="datos_personales">
+                    <div class="row ">
+                        {{form.imagen_perfil}}    
+                        <div class="col mb-3">                            
+                            <label for="email">Usuario:</label>                            
+                                {{form.email}}                           
+                        </div>
+
+                        <div class="col mb-3">
+                             <label  for="first-name">Nombre:  </label>
+                              {{form.first_name}}
+                        </div>
+                                          
+                    </div>
+
+                    <div class="row">
+
+                         
+                        <div class="col  mb-3">                            
+                            <label  for="second-name">Apellido:</label>
+                            {{form.last_name}}                                
+                        </div>
+
+                        <div class="col  mb-3">                            
+                            <label for="first-name">Apellido:</label>
+                                {{form.second_name}}                                
+                        </div>
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            <label for="first-name">Fecha Nac. : </label>
+                            {{form.fecha_nac}}
+                        </div>
+
+                        <div class="col  mb-3">
+                            <label for="first-name">Teléfono particular: </label>
+                            {{form.telefono_particular}}                             
+                        </div>
+
+                    </div>
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">RFC: 
+                                </label>
+                                
+                                 {{form.rfc}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Etado civil: 
+                                </label>
+                                
+                                 {{form.estado_civil}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Genero: 
+                                </label>
+                                
+                                 {{form.genero}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Nacionalidad: 
+                                </label>
+                                
+                                 {{form.nacionalidad}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Pais: 
+                                </label>
+                                
+                                 {{form.pais}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Estado: 
+                                </label>
+                                
+                                 {{form.estado}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Celular: 
+                                </label>
+                                
+                                 {{form.celular}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Dependientes: 
+                                </label>
+                                
+                                 {{form.numero_dependientes}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">CURP: 
+                                </label>
+                                
+                                 {{form.curp}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">INE
+                                </label>
+                                
+                                {{form.documento_ine}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+                    
+                <div class="tab-pane fade show mt-1" id="direccion">
+                    <div class="row ">
+                        
+                        <div class="col mb-43>
+                            
+                                <label for="first-name">Calle y Numero:
+                                </label>
+                                
+                                 {{form.calle_numero}}
+                                
+                            
+                        </div>
+                        
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Colonia: 
+                                </label>
+                                
+                                 {{form.colonia}}
+                                
+                            
+                        </div>
+
+                        
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">C.P.: 
+                                </label>
+                                
+                                 {{form.cp}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Ciudad:
+                                </label>
+                                
+                                 {{form.ciudad}}
+                                
+                            
+                        </div>
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Estado: 
+                                </label>
+                                
+                                 {{form.estado_direccion}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Tipo de vivienda: 
+                                </label>
+                                
+                                 {{form.tipo_vivienda}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Años radicando: 
+                                </label>
+                                
+                                 {{form.años_radicando}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Comprobante domicilio:
+                                </label>
+                                
+                                {{form.comprobante_domicilio}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                </div> 
+                
+                <div class="tab-pane fade show mt-1" id="referencias">
+                    <div class="row ">
+                        
+                        <div class="col mb-43>
+                            
+                                <label for="first-name">Nombre Conyuge:
+                                </label>
+                                
+                                 {{form.conyuge_pareja}}
+                                
+                            
+                        </div>
+                        
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Trabajo conyuge: 
+                                </label>
+                                
+                                 {{form.trabajo_conyuge}}
+                                
+                            
+                        </div>
+
+                        
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Antiguedad laboral: 
+                                </label>
+                                
+                                 {{form.antiguedad_laboral_conyuge}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Telefono:
+                                </label>
+                                
+                                 {{form.telefono_conyuge}}
+                                
+                            
+                        </div>
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Referencia personal: 
+                                </label>
+                                
+                                 {{form.referencia_personal_conyuge_1}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Telefono : 
+                                </label>
+                                
+                                 {{form.telefono_ref_conyuge_1}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Referencia personal: 
+                                </label>
+                                
+                                 {{form.referencia_personal_conyuge_2}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Telefono: 
+                                </label>
+                                
+                                {{form.telefono_ref_conyuge_2}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                </div> 
+
+                <div class="tab-pane fade show mt-1" id="comercio">
+                    <div class="row ">
+                        
+                        <div class="col mb-43>
+                            
+                                <label for="first-name">Nombre negocio:
+                                </label>
+                                
+                                 {{form.nombre_negocio}}
+                                
+                            
+                        </div>
+                        
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Giro: 
+                                </label>
+                                
+                                 {{form.giro}}
+                                
+                            
+                        </div>
+
+                        
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Inmueble: 
+                                </label>
+                                
+                                 {{form.inmueble}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Años antiguedad:
+                                </label>
+                                
+                                 {{form.años_antiguedad}}
+                                
+                            
+                        </div>
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Calle y numero : 
+                                </label>
+                                
+                                 {{form.calle_numero_negocio}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Colonia : 
+                                </label>
+                                
+                                 {{form.colonia_negocio}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">C.P. : 
+                                </label>
+                                
+                                 {{form.cp_negocio}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Ciudad: 
+                                </label>
+                                
+                                {{form.ciudad_negocio}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Estado : 
+                                </label>
+                                
+                                 {{form.estado_negocio}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name"> 
+                                </label>
+                                
+                                                                  
+                            
+                        </div>
+
+                    </div>
+
+                </div> 
+                
+
+                 <div class="tab-pane fade show mt-1" id="datos_aval">
+                    <div class="row ">
+                        
+                        <div class="col mb-43>
+                            
+                                <label for="first-name">Nombre:
+                                </label>
+                                
+                                 {{form.nombre_aval}}
+                                
+                            
+                        </div>
+                        
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Primer apellido: 
+                                </label>
+                                
+                                 {{form.primer_apellido}}
+                                
+                            
+                        </div>
+
+                        
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Segundo apellido: 
+                                </label>
+                                
+                                 {{form.segundo_apellido}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Fecha nac. :
+                                </label>
+                                
+                                 {{form.fecha_nac_aval}}
+                                
+                            
+                        </div>
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Email: 
+                                </label>
+                                
+                                 {{form.email_aval}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Genero: 
+                                </label>
+                                
+                                 {{form.genero_aval}}
+                                
+                            
+                        </div>
+
+                    </div>
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Ciudad: 
+                                </label>
+                                
+                                 {{form.ciudad_aval}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Estado: 
+                                </label>
+                                
+                                 {{form.estado_aval}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">RFC: 
+                                </label>
+                                
+                                 {{form.rfc_aval}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Calle y numero: 
+                                </label>
+                                
+                                 {{form.calle_numero_aval}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Colonia: 
+                                </label>
+                                
+                                 {{form.colonia_aval}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">C.P.: 
+                                </label>
+                                
+                                 {{form.cp_aval}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Relacion con el titular: 
+                                </label>
+                                
+                                 {{form.relacion_titular}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Tipo de vivienda: 
+                                </label>
+                                
+                                 {{form.tipo_vivienda_aval}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Años radicando: 
+                                </label>
+                                
+                                 {{form.años_radicando_aval}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name"> Lugar de trabajo:
+                                </label>
+                                
+                                {{form.lugar_trabajo_aval}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Antiguedad laboral: 
+                                </label>
+                                
+                                 {{form.antiguedad_trabajo_aval}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name"> Celular:
+                                </label>
+                                
+                                {{form.celular_aval}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name"> Telefono Laboral:
+                                </label>
+                                
+                                {{form.telefono_laboral_aval}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">CURP: 
+                                </label>
+                                
+                                 {{form.curp_aval}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">INE: 
+                                </label>
+                                
+                                 {{form.documento_ine_aval}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name"> Comprobante domicilio:
+                                </label>
+                                
+                                {{form.comprobante_domicilio_aval}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">CURP: 
+                                </label>
+                                
+                                {{form.curp_texto}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                            
+                            
+                                
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+
+               
+
+            </div>
+         
+
+          
+
+          <div class="modal-footer">
+             <div class="form-check">
+
+                <label for="first-name"> Leí y acepto el <a href="{% url 'dashboard_app:terminos_condiciones' %}" target="_blank" class="text-dark" style="text-decoration: underline;">Aviso de Privacidad</a></label>
+                {{form.aviso_privacidad}}
+                    <!-- <input type="checkbox" class="form-check-input" id="checkbox-signup">
+                    <label class="form-check-label" for="checkbox-signup"> </label> -->
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+           
+            <button type="submit" class="btn btn-primary">
+              Actualizar Usuario
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

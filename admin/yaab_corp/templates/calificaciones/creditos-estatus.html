@@ -1,0 +1,663 @@
+
+
+{% extends "dashboard/index.html" %}
+<!---->
+{% load static %}
+<!---->
+{% load humanize %}
+{% block title %}Calificaciones{% endblock title %}
+<!---->
+{% block extra_css %}
+
+
+
+<!-- third party css -->
+<link
+  href="{% static 'libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-select-bs5/css/select.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+
+
+<!-- third party css end -->
+
+{% endblock extra_css %}
+<!---->
+{% block topbar %}
+<!---->
+<!---->
+{% include "partials/topbar.html" with pagetitle="Estatus Creditos" %}
+<!---->
+{% endblock topbar %}
+<!---->
+{% block content %}
+
+
+
+
+<style>
+
+  .borde{
+    transition: box-shadow 0.5s ease-in-out;
+  }
+
+  .borde:hover{
+    box-shadow: 5px 3px 3px rgb(177, 177, 177);
+    border-radius: 10px;
+  }
+
+  .carta{
+    transition: background-color 0.6s ease-in-out;
+  }
+
+  .carta:hover{
+    background-color: rgb(113, 116, 116);
+    color: white;
+  }
+
+  .card-text {
+    /* Estilos originales aquí */
+    transition: background-color 0.8s ease-in-out, border-radius 0.8s ease-in-out, color 0.8s ease-in-out,text-align 0.8s ease-in-out;
+  }
+
+  .card-text:hover{
+    /*background-color: rgb(78, 81, 81);
+    border-radius: 5px;
+    color: white;*/
+    text-align: center;
+    
+  }
+
+</style>
+
+
+
+
+<!--plazo-->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+              
+                <h4 class="mt-0 header-title">Registros  </h4>
+                <p class="text-muted font-14 mb-3">
+                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut corrupti incidunt expedita ea! Aut amet explicabo nisi suscipit repellendus, perferendis culpa
+                </p>
+
+                               
+                
+                <table id="datatable" class="table dt-responsive nowrap table-hover">
+                  <thead>
+                    <tr>
+                      <th>Contrato</th>
+                      <th>Cliente</th>
+                      <th>Monto Crédito + Ordinarios</th>
+                      <th>Tipo</th>
+                      <th>Desembolso</th>
+                      <th>Fecha Desembolso</th>
+                      <th>Monto Pago</th>
+                      <th>Semanas</th>
+                      <th>Monto Pagado</th>
+                      <th>Saldo</th>
+                      <th>Días Morosidad</th>
+                      <th>Monto Morosidad</th>
+                      <th>Saldo + Morosidad</th>
+                      <th>Estatus</th>
+                      <th>Registro pago</th>
+                      <th>Corrida financiera </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                     
+                      {% for simulador in estatus %}
+                    <tr>
+                     
+                        <!-- <td>item.numero_contrato_estatus.numero_contrato</td> -->
+                        <td>{{simulador.numero_contrato}}</td>
+                        <td>{{simulador.nombre_usuario | upper}}</td>
+                        <td>$ {{ simulador.monto_total_calculado }}</td>
+                        <td>{{simulador.tipo}}</td>
+                        <td>$ {{simulador.desembolso}}</td>
+                        <td>{{simulador.fecha_desembolso|date:'d/m/Y'}}</td>
+                        <td>$ {{simulador.pago_mensual}}</td>
+                        <td>{{simulador.tiempo}}</td>
+                        <td>$ {{simulador.monto_pagado_hasta_hoy}}</td>
+                        <td>$ {{simulador.saldo_pendiente}}</td>
+                        <td>{{simulador.dias_morosidad}}</td>
+                        <td>$ {{simulador.monto_morosidad|floatformat:2}}</td>
+                        <td>$ {{simulador.saldo_mas_morosidad|floatformat:2}}</td>
+                        <td>{{simulador.estatus}}</td>
+                        <td>
+
+                          <div class="accordion d-flex" id="accordionExample">
+                            <div class="">
+                              <h2 class="" id="headingOne">
+                                <button class="btn btn-outline-dark btn-sm rounded" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                  Ver
+                                </button>
+                              </h2>
+                              <div id="collapseTwo" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                  <div id="corridaFinancieraContent">
+
+                                     <form method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        {{ registro_pagos_form.as_p }}  <!-- Renderizar el formulario en formato de párrafos -->
+                                        <button class="btn btn-outline-dark btn-sm rounded" type="submit">Guardar Pago</button>
+                                    </form>
+                                    
+                                  </div>                                 
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <button type="button" class="btn btn-outline-dark btn-sm rounded" data-bs-toggle="modal" data-bs-target="#registroPago">Abrir </button> -->
+                        </td>
+                        <td>
+                           
+                          <div class="accordion" id="accordionExample">
+                            <div class="">
+                              <h2 class="" id="headingOne">
+                                <button class="btn btn-outline-dark btn-sm rounded" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                  Ver
+                                </button>
+                              </h2>
+                              <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                  <div id="corridaFinancieraContent">
+
+                                    
+                                    <table id="corrida-datatable" class="table dt-responsive nowrap table-hover w-100">
+                                      <thead>
+                                          <tr>
+                                              <th>Número de Pago</th>
+                                              <th>Fecha de Pago</th> 
+                                              <th>Monto a Pagar</th>
+                                              <th>Monto Pagado</th>
+                                              <th>Monto Restante</th>
+
+                                              <!-- Agrega más columnas según sea necesario -->
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for pago in simulador.corrida_financiera %}
+                                              <tr>
+                                                  <td>{{ pago.numero_pago }}</td>
+                                                  <td>{{ pago.fecha_pago|date:'d/m/Y' }}</td> 
+                                                  <td>{{ pago.pago_mensual }}</td>
+                                                  <td> {{pago.monto_pagado}}</td>
+                                                  <td>
+                                                  {% if pago.estado_pago %}
+                                                    {{ pago.estado_pago }}
+                                                  {% endif %}
+                                                  </td>
+                                                  <!-- Agrega más celdas según sea necesario -->
+                                              </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                    </table>
+                                  </div> 
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </td>
+                    </tr>
+                    
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+        </div>
+       
+    </div>
+</div> <!-- end row -->
+<!--plazo-->
+
+
+
+ <h1>Corrida Financiera prueba</h1>
+    {% for simulador_con_pagos in simuladores_con_pagos %}
+    <h2>Simulador: {{ simulador_con_pagos.simulador }}</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Número de Pago</th>
+                <th>Fecha de Pago</th>
+                <th>Monto a Pagar</th>
+                <th>Monto Pagado</th>
+                <th>Monto Restante</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pago in simulador_con_pagos.pagos %}
+            <tr>
+                <td>{{ pago.numero_pago }}</td>
+                <td>{{ pago.fecha_pago }}</td>
+                <td>{{ pago.monto_a_pagar }}</td>
+                <td>{{ pago.monto_pagado }}</td>
+                <td>{{ pago.monto_restante }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+
+
+
+
+    <h2>Corrida Financiera otro</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Número de Pago</th>
+          <th>Fecha de Pago</th>
+          <th>Monto a Pagar</th>
+          <th>Monto Pagado</th>
+          <th>Monto Restante</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in corrida_financiera %}
+        
+          <tr>
+            <td>{{ forloop.counter }}</td> <!-- Número de Pago -->
+            <td>{{ item.fecha_inicio|date:"d/m/Y" }} - {{ item.fecha_final|date:"d/m/Y" }}</td> <!-- Fecha de Pago -->
+            <td>{{ item.monto_total }}</td> <!-- Monto a Pagar -->
+            <td>{{ item.monto_pagado }}</td> <!-- Monto Pagado -->
+            <td>{{ item.monto_restante }}</td> <!-- Monto Restante -->
+          </tr>
+          
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+   
+<!-- Button trigger modal -->
+
+
+<!-- Modal corrida financiera -->
+<div class="modal fade d-none" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Corrida financiera</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <div class="card">
+            <div class="card-body">
+              <h4 class="mt-0 header-title mb-2 d-none"></h4>
+              {% for simulador in estatus %}                  <!-- Tu código HTML existente para mostrar detalles del crédito -->
+              <!-- Mostrar la corrida financiera en una tabla -->
+                      {% for detalle_pago in simulador.corrida_financiera %}
+                        <li>Pago {{ detalle_pago.numero_pago }}: {{ detalle_pago.fecha_pago }}, Monto: {{ detalle_pago.pago_mensual }}</li>
+                    {% endfor %}
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary d-none">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+<!-- Modal corrida financiera -->
+
+
+<!-- Modal registro pagos-->
+<div class="modal fade" id="registroPago" tabindex="-1" aria-labelledby="registroPagoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registro de pago</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <div class="card">
+            <div class="card-body">
+              <h4 class="mt-0 header-title mb-2 d-none"></h4>
+
+              
+
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary d-none">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal registro pagos-->
+
+            
+       
+
+<div id="corridaFinancieraModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Corrida Financiera</h2>
+    <div id="corridaFinancieraContent">
+      <!-- Contenido de la corrida financiera se insertará aquí -->
+      {% for simulador in estatus %}                  <!-- Tu código HTML existente para mostrar detalles del crédito -->
+              <!-- Mostrar la corrida financiera en una tabla -->
+        <table id="" class="table dt-responsive nowrap table-hover w-100">
+          <thead class="w-100">
+            <tr>
+              <th>Número de Pago</th>
+              <th>Fecha de Pago</th>
+              <th>Monto a Pagar</th>
+              <th>Pago</th>
+                        <!-- Agrega más columnas según sea necesario -->
+            </tr>
+          </thead>
+          <tbody>
+            {% for detalle_pago in simulador.corrida_financiera %}
+            <tr>
+              <td>{{ detalle_pago.numero_pago }}</td>
+              <td>{{ detalle_pago.fecha_pago|date:'d/m/Y' }}</td>
+              <td>{{ detalle_pago.pago_mensual }}</td>
+              <td></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+
+
+{% include "partials/footer.html" %}
+<!---->
+{% endblock content %}
+<!---->
+{% block extra_js %}
+
+<script>
+
+
+
+
+</script>
+
+<!-- third party js -->
+
+<script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-select/js/dataTables.select.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+<!-- third party js ends -->
+
+<!-- Datatables init -->
+<script src="{% static 'js/pages/datatables.init.js' %}"></script>
+
+
+
+
+<script>
+  var openModalBtns = document.querySelectorAll(".openModalBtn");
+  var simuladorId = this.getAttribute("data-simulador-id");
+
+  document.addEventListener("DOMContentLoaded", function () {
+      // Obtener el modal y el botón de cierre
+      var modal = document.getElementById("modalOne");
+      var closeBtn = document.getElementsByClassName("close")[0];
+
+      // Obtener todos los botones de abrir modal
+      var openModalBtns = document.querySelectorAll(".openModalBtn");
+
+      // Escuchar el clic en cada botón de abrir modal
+      openModalBtns.forEach(function(openModalBtn) {
+          openModalBtn.addEventListener("click", function() {
+              // Obtener el ID del simulador del botón clicado
+              var simuladorId = this.getAttribute("data-simulador-id");
+
+              // Aquí debes obtener el simulador correspondiente al registro actual
+              var simulador = obtenerSimuladorCorrespondiente(simuladorId); // Implementa esta función
+
+              // Aquí debes obtener la corrida financiera correspondiente al simulador
+              var corridaFinanciera = simulador.corrida_financiera; // Ajusta esto según tu estructura de datos
+
+              // Mostrar la corrida financiera en el modal
+              mostrarCorridaFinancieraEnModal(corridaFinanciera);
+
+              // Mostrar el modal
+              modal.style.display = "block";
+          });
+      });
+
+      // Cerrar el modal cuando se hace clic en el botón de cierre
+      closeBtn.onclick = function() {
+          modal.style.display = "none";
+      };
+
+      // Cerrar el modal cuando se hace clic fuera del modal
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+      };
+
+      // Función para obtener el simulador correspondiente al ID
+      function obtenerSimuladorCorrespondiente(simuladorId) {
+          // Iterar sobre la lista de simuladores para encontrar el simulador correspondiente
+          for (var i = 0; i < simuladores_data.length; i++) {
+              if (simuladores_data[i].id === simuladorId) {
+                  return simuladores_data[i];
+              }
+          }
+          // Si no se encuentra el simulador correspondiente, devuelve null o maneja el caso según sea necesario
+          return null;
+      }
+
+      // Función para mostrar la corrida financiera en el modal
+      function mostrarCorridaFinancieraEnModal(corridaFinanciera) {
+          var corridaFinancieraList = document.getElementById("corrida-financiera");
+          // Limpia el contenido anterior
+          corridaFinancieraList.innerHTML = "";
+          // Agrega los elementos de la corrida financiera al modal
+          corridaFinanciera.forEach(function(detalle_pago) {
+              var listItem = document.createElement("li");
+              listItem.innerHTML = "Pago " + detalle_pago.numero_pago + ": " + detalle_pago.fecha_pago + ", Monto: " + detalle_pago.pago_mensual;
+              corridaFinancieraList.appendChild(listItem);
+          });
+      }
+  });
+</script>
+
+
+
+<script>
+/*
+  
+   //document.addEventListener("DOMContentLoaded", function () {
+      // Obtener el modal y el botón de cierre
+      var modal = document.getElementById("modalOne");
+      var closeBtn = document.getElementsByClassName("close")[0];
+
+      // Obtener el botón de abrir modal
+      var openModalBtn = document.getElementById("openModalBtn");
+
+      function obtenerSimuladorCorrespondiente() {
+          // Obtener el ID del simulador del botón que se hizo clic
+          var simuladorId = document.getElementById("openModalBtn").getAttribute("data-simulador-id");
+          
+          // Iterar sobre la lista de simuladores para encontrar el simulador correspondiente
+          for (var i = 0; i < simuladores_data.length; i++) {
+              if (simuladores_data[i].id === simuladorId) {
+                  return simuladores_data[i];
+              }
+          }
+          
+          // Si no se encuentra el simulador correspondiente, devuelve null o maneja el caso según sea necesario
+          return null;
+      };
+
+      // Escuchar el clic en el botón de abrir modal
+      openModalBtn.addEventListener("click", function() {
+          // Aquí debes obtener el simulador correspondiente al registro actual
+          var simulador = obtenerSimuladorCorrespondiente(); // Necesitas implementar esta función
+          
+          // Aquí debes obtener la corrida financiera correspondiente al simulador
+          var corridaFinanciera = simulador.corrida_financiera; // Necesitas ajustar esto dependiendo de cómo esté estructurado tu objeto simulador
+
+          // Mostrar la corrida financiera en el modal
+          mostrarCorridaFinancieraEnModal(corridaFinanciera);
+          
+          // Mostrar el modal
+          modal.style.display = "block";
+      });
+
+      // Cerrar el modal cuando se hace clic en el botón de cierre
+      closeBtn.onclick = function() {
+          modal.style.display = "none";
+      };
+
+      // Cerrar el modal cuando se hace clic fuera del modal
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+      };
+
+      // Función para mostrar la corrida financiera en el modal
+      function mostrarCorridaFinancieraEnModal(corridaFinanciera) {
+          var corridaFinancieraList = document.getElementById("corrida-financiera");
+          // Limpia el contenido anterior
+          corridaFinancieraList.innerHTML = "";
+          // Agrega los elementos de la corrida financiera al modal
+          corridaFinanciera.forEach(function(detalle_pago) {
+              var listItem = document.createElement("li");
+              listItem.innerHTML = "Pago " + detalle_pago.numero_pago + ": " + detalle_pago.fecha_pago + ", Monto: " + detalle_pago.pago_mensual;
+              corridaFinancieraList.appendChild(listItem);
+          });
+      }
+ //  });
+
+ */
+</script>
+
+<script>
+      // Obtener el modal
+    var modal = document.getElementById("corridaFinancieraModal");
+
+    // Obtener el botón que abre el modal
+    var btn = document.getElementById("botonCorridaFinanciera");
+
+    // Obtener el span que cierra el modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // Cuando el usuario hace clic en el botón, abrir el modal
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // Cuando el usuario hace clic en <span> (x), cerrar el modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // Cuando el usuario hace clic en cualquier lugar fuera del modal, cerrarlo
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+</script>
+
+<script>
+  $(document).ready(function () {
+    $("#id_num_contrato").change(function () {
+      var selectedProduct = $(this).val();
+      if (selectedProduct) {
+        // Realiza una solicitud AJAX al servidor para obtener el interés del producto seleccionado
+        $.ajax({
+          url: "{% url 'calificaciones_app:obtener_monto_total' %}", // Reemplaza con la URL correcta
+          data: {
+            num_contrato_id: selectedProduct,
+          },
+          success: function (data) {
+            // Rellena el campo interest_rate con el valor recibido
+            console.log('soy data',data);
+            $("#id_monto_total_registro").val(data.monto_total);
+            $("#id_usuario").val(data.usuario); 
+          },
+        });
+      } else {
+        // Borra el campo interest_rate si no hay selección
+        $("#id_monto_total_registro").val("");
+        $("#id_usuario").val("");
+        
+      };
+    });
+  });
+    
+</script>
+
+
+<script>
+        $(document).ready(function () {
+            // Configuración de DataTables
+            $('#corrida-datatable').DataTable({
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]], // Opciones para mostrar 5, 10, 25, 50 elementos por página
+                "pageLength": 5, // Número predeterminado de elementos por página
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "No se encontraron registros",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(filtrados de _MAX_ registros totales)",
+                    "search": "Buscar:",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                "buttons": [
+                    'copy', 'excel', 'pdf', 'print'
+                ]
+            });
+        });
+    </script>
+
+<!---->
+
+
+{% endblock extra_js %}

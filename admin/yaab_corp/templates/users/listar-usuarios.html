@@ -1,0 +1,196 @@
+{% extends "dashboard/index.html" %}
+<!---->
+{% load static %}
+<!---->
+{% block title %}Datatables{% endblock title %}
+<!---->
+{% block extra_css %}
+
+<!-- third party css -->
+<link
+  href="{% static 'libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-select-bs5/css//select.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<!-- third party css end -->
+
+{% endblock extra_css %}
+<!---->
+{% block topbar %}
+<!---->
+<!---->
+{% include "partials/topbar.html" with pagetitle="Usuarios" %}
+<!---->
+{% endblock topbar %}
+<!---->
+{% block content %}
+
+
+
+<!--productos-->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Edita los usuarios</h4>
+                <p class="text-muted font-14 mb-3">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut corrupti incidunt expedita ea! Aut amet explicabo nisi suscipit repellendus, perferendis culpa 
+                </p>
+                
+                <!--id="key-table"    table dt-responsive nowrap table-hover-->
+                <table id="datatable" class=" table dt-responsive nowrap table-hover">
+                    <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in lista %}
+                    <tr>
+                        <td>{{item.email}}</td>
+                        <td>{{item.first_name | upper}}</td>
+                        <td>{{item.last_name | upper}}</td>
+                        <td>{{item.second_name | upper}}</td>
+
+                        <td>
+                        <div class="dropdown">
+                            <a
+                            class="dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            >
+                            <i class="mdi mdi-playlist-plus" style="color: black; font-size:18px;"></i>
+                            </a>
+                            <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                            >
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#actualizarUsuariosModal"
+                                onclick="actualizarModalUser('{% url 'user_app:editar_usuarios' pk=item.id %}')"
+                            >
+                                Editar
+                            </button>
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#eliminarUsuarioModal"
+                                onclick="eliminarModalUser('{% url 'user_app:eliminar_usuarios' pk=item.pk %}')"
+                            >
+                                Eliminar
+                            </button>
+                            </div>
+                        </div>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+       
+    </div>
+</div> <!-- end row -->
+<!--productos-->
+
+
+<!--modal eliminar usuarios-->
+<div
+  class="modal fade"
+  id="eliminarUsuarioModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg"></div>
+</div>
+<!--modal eliminar usuarios-->
+
+<!--modal editar usuarios-->
+<div
+  class="modal fade"
+  id="actualizarUsuariosModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg"></div>
+</div>
+<!--modal editar usuarios-->
+
+
+
+{% include "partials/footer.html" %}
+<!---->
+{% endblock content %}
+<!---->
+{% block extra_js %}
+
+<script>
+  //eliminar usuario
+  function eliminarModalUser(url) {
+    $("#eliminarUsuarioModal").load(url, function () {
+      $(this).modal("show");
+    });
+  }
+  //editar usuario
+  function actualizarModalUser(url) {
+    $("#actualizarUsuariosModal").load(url, function () {
+      $(this).modal("show");
+    });
+  }
+  
+
+</script>
+
+<!-- third party js -->
+<script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-select/js/dataTables.select.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+<!-- third party js ends -->
+
+<!-- Datatables init -->
+<script src="{% static 'js/pages/datatables.init.js' %}"></script>
+
+<!---->
+
+
+{% endblock extra_js %}

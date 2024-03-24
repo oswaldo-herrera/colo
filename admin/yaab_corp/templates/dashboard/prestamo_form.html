@@ -1,0 +1,34 @@
+{% extends "partials/layout-vertical.html" %}
+<!---->
+{% load static %}
+<!---->
+{%include "partials/topbar.html" with pagetitle="YAAB Servicios Financieros"%}
+{% block content %}
+
+<div class="card w-50 p-2">
+  <h2>Nuevo Préstamo</h2>
+   <form method="post" action="{% url 'dashboard_app:nuevo_prestamo' %}">
+     {% csrf_token %}
+     {{form.tipo_prestamo.label}}{{form.tipo_prestamo}}
+     <br>
+     <br>
+     {{form.nombre_producto.label}}{{form.nombre_producto}}
+     <br>
+     {{form.tipo_periodo.label}}{{form.tipo_periodo}}
+     <br>
+     <br>
+     {{form.monto.label}}{{form.monto}}
+     <br>
+     {{form.plazo.label}}{{form.plazo}}
+     <br>
+     {{form.interes_ordinario.label}}{{form.interes_ordinario}}
+     <br>
+     {{form.interes_moratorio.label}}{{form.interes_moratorio}}
+     <br>
+     {{form.pago_mensual}}
+     
+     <button type="submit" class="btn btn-secondary">Registrar prestamo</button>
+   </form>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,316 @@
+{% load static %}
+<!-- Topbar Start -->
+<div class="navbar-custom">
+  <ul class="list-unstyled topnav-menu float-end mb-0">
+    <li class="d-none d-lg-block">
+      <form class="app-search">
+        <div class="app-search-box">
+          <!--search para buscar algo -->
+          <div class="input-group d-none">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search..."
+              id="top-search"
+            />
+            <button class="btn input-group-text" type="submit">
+              <i class="fe-search"></i>
+            </button>
+          </div>
+          <!--fin search para buscar algo -->
+          <div class="dropdown-menu dropdown-lg" id="search-dropdown">
+            <!-- item-->
+            <div class="dropdown-header noti-title">
+              <h5 class="text-overflow mb-2">Found 22 results</h5>
+            </div>
+
+            <!-- item-->
+            <a href="javascript:void(0);" class="dropdown-item notify-item">
+              <i class="fe-home me-1"></i>
+              <span>Analytics Report</span>
+            </a>
+
+            <!-- item-->
+            <a href="javascript:void(0);" class="dropdown-item notify-item">
+              <i class="fe-aperture me-1"></i>
+              <span>How can I help you?</span>
+            </a>
+
+            <!-- item-->
+            <a href="javascript:void(0);" class="dropdown-item notify-item">
+              <i class="fe-settings me-1"></i>
+              <span>User profile settings</span>
+            </a>
+
+            <!-- item-->
+            <div class="dropdown-header noti-title">
+              <h6 class="text-overflow mb-2 text-uppercase">Users</h6>
+            </div>
+
+            <div class="notification-list">
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <div class="d-flex align-items-start">
+                  <img
+                    class="d-flex me-2 rounded-circle"
+                    src="{% static 'images/users/user-2.jpg' %}"
+                    alt="Generic placeholder image"
+                    height="32"
+                  />
+                  <div class="w-100">
+                    <h5 class="m-0 font-14">Erwin E. Brown</h5>
+                    <span class="font-12 mb-0">UI Designer</span>
+                  </div>
+                </div>
+              </a>
+
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <div class="d-flex align-items-start">
+                  <img
+                    class="d-flex me-2 rounded-circle"
+                    src="{% static 'images/users/user-5.jpg' %}"
+                    alt="Generic placeholder image"
+                    height="32"
+                  />
+                  <div class="w-100">
+                    <h5 class="m-0 font-14">Jacob Deo</h5>
+                    <span class="font-12 mb-0">Developer</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </li>
+    <!--movil-->
+    <li class="dropdown d-inline-block d-lg-none d-none">
+      <a
+        class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="false"
+        aria-expanded="false"
+      >
+        <i class="fe-search noti-icon "></i>
+      </a>
+      <div class="dropdown-menu dropdown-lg dropdown-menu-end p-0 ">
+        <form class="p-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search ..."
+            aria-label="Recipient's username"
+          />
+        </form>
+      </div>
+    </li>
+
+
+    
+
+    <!--campanita de notificaciones-->
+    <li  class="dropdown notification-list topbar-dropdown  ">
+      <a
+        class="nav-link dropdown-toggle waves-effect waves-light"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="false"
+        aria-expanded="false"
+      >
+        <i class="fe-bell noti-icon"></i>
+        <span id="pendingRequests" class="badge bg-danger rounded-circle noti-icon-badge "></span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-end dropdown-lg">
+        <!-- item-->
+                
+          <!-- item-->
+          <button
+            id="notificationIcon"
+            class="dropdown-item notify-item active"
+          >           
+          <span id="pendingRequestsSolicitud" style="margin-top: 5px;" class="badge bg-danger rounded-circle noti-icon-badge"></span>
+          <p  class="">Solicitudes de crédito</p>
+
+          </button>
+
+          <button
+            id="notificationIconGrupal"
+            class="dropdown-item notify-item active"
+          >           
+          <span id="pendingRequestsSolicitudGrupal" style="margin-top: 70px;" class="badge bg-danger rounded-circle noti-icon-badge "></span>
+          <p  class="">Solicitudes grupales</p>
+
+          </button>
+          
+      </div>
+    </li>
+    <li class="dropdown notification-list topbar-dropdown">
+      <a
+        class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="false"
+        aria-expanded="false"
+      >
+        
+        <span class="pro-user-name ms-1 fw-bold">
+          Hola, {{user.first_name}} {{user.last_name}}<i class="mdi mdi-chevron-down"></i>
+        </span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-end profile-dropdown">
+        <!-- item-->
+        <div class="dropdown-header noti-title d-none">
+          <h6 class="text-overflow m-0">Bienvenido !</h6>
+        </div>
+
+        <!-- item url 'profile'-->
+
+        <a href="" class="dropdown-item notify-item d-none">
+          <i class="fe-user"></i>
+          <span>Algo</span>
+        </a>
+
+        <!-- item url 'lock-screen'-->
+        <!-- <a href="" class="dropdown-item notify-item">
+          <i class="fe-lock"></i>
+          <span>Lock Screen</span>
+        </a> -->
+
+        <div class="dropdown-divider"></div>
+
+        <!-- item url 'logout'   url 'logout'-->
+        <a href="{% url 'account_logout' %}" class="dropdown-item notify-item">
+          <i class="fe-log-out"></i>
+          <span>Cerrar Sesion</span>
+        </a>
+      </div>
+    </li>
+
+    <!--seccion de cambio de template-->
+    <li class="dropdown notification-list d-none">
+      <a
+        href="javascript:void(0);"
+        class="nav-link right-bar-toggle waves-effect waves-light"
+      >
+        <i class="fe-settings noti-icon"></i>
+      </a>
+    </li>
+  </ul>
+
+  <!-- LOGO -->
+  <div class="logo-box">
+    <a href="{% url 'index' %}" class="logo logo-light text-center">
+      <span class="logo-sm">
+         <!-- static 'images/landing/yaab_corp.png'  -->
+        <img
+          src=""
+          alt=""
+          height="22"
+        />
+      </span>
+      <span class="logo-lg">
+         <!-- static 'images/landing/yaab_corp.png'  -->
+        <img
+          src=""
+          alt=""
+          width="50%"
+        />
+      </span>
+    </a>
+    <a href="{% url 'index' %}" class="logo logo-dark text-center">
+      <span class="logo-sm">
+        <img src="{% static 'images/logo-sm.png' %}" alt="" height="22" />
+      </span>
+      <span class="logo-lg">
+        <img src="{% static 'images/logo-dark.png' %}" alt="" height="16" />
+      </span>
+    </a>
+  </div>
+
+  <ul class="list-unstyled topnav-menu topnav-menu-left mb-0">
+    <li>
+      <button class="button-menu-mobile disable-btn waves-effect">
+        <i class="fe-menu"></i>
+      </button>
+    </li>
+
+    <li>
+      <h4 class="page-title-main">{{ pagetitle }}</h4>
+    </li>
+  </ul>
+
+  <div class="clearfix"></div>
+</div>
+<!-- end Topbar -->
+
+
+<script>
+    // Función para actualizar el contador de solicitudes pendientes usando AJAX.
+    function actualizarNotificacion() {
+        $.ajax({
+            url: "{% url 'credit_personal_app:solicitud' %}",  
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // Actualizar la notificación con los datos obtenidos
+                let totalSolicitudes = 0;
+                data.usuarios.forEach(function(usuario) {
+                    totalSolicitudes += usuario.num_solicitudes_pendientes || 0;
+                });
+
+                let totalSolicitudesGrupales = 0;
+                data.usuarios_grupales.forEach(function(usuario) {
+                    totalSolicitudesGrupales += usuario.num_solicitudes_pendientes_grupal || 0;
+                });
+
+                
+                let notificacion_solicitud = document.getElementById('pendingRequestsSolicitud');
+                notificacion_solicitud.style.display = totalSolicitudes >= 0 ? 'inline' : 'none';
+                notificacion_solicitud.innerText = totalSolicitudes;
+
+                let notificacion_solicitud_grupal = document.getElementById('pendingRequestsSolicitudGrupal');
+                notificacion_solicitud_grupal.style.display = totalSolicitudesGrupales >= 0 ? 'inline' : 'none';
+                notificacion_solicitud_grupal.innerText = totalSolicitudesGrupales;
+
+                let totalSolicitudesTotales = totalSolicitudes + totalSolicitudesGrupales;
+
+                let notificacion = document.getElementById('pendingRequests');
+                notificacion.style.display = totalSolicitudesTotales >= 0 ? 'inline' : 'none';
+                notificacion.innerText = totalSolicitudesTotales;
+
+
+                
+            },
+            error: function(error) {
+                console.error('Error al obtener las solicitudes pendientes:', error);
+            }
+        });
+    };
+
+
+    
+    // Función para redirigir a la página de solicitudes pendientes al hacer clic en la notificación.
+    document.getElementById('notificationIcon').addEventListener('click', function() {
+        // Redirige a la página de solicitudes pendientes en tu aplicación Django.
+        window.location.href = "{% url 'credit_personal_app:bandeja_solicitud_html' %}"; // Reemplaza con tu ruta real.
+    });
+
+    document.getElementById('notificationIconGrupal').addEventListener('click', function() {
+        // Redirige a la página de solicitudes pendientes en tu aplicación Django.
+        window.location.href = "{% url 'credit_personal_app:bandeja_solicitud_html' %}"; // Reemplaza con tu ruta real.
+    });
+
+    // Llama a la función para actualizar la notificación al cargar la página.
+    document.addEventListener('DOMContentLoaded', function() {
+        actualizarNotificacion(); // Actualiza el contador al cargar la página.
+        
+        // Puedes configurar un intervalo para actualizar automáticamente cada cierto tiempo.
+        // setInterval(actualizarNotificacion, 5000); // Por ejemplo, actualizar cada 5 segundos.
+    });
+</script>
+

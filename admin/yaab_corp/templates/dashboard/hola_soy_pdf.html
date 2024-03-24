@@ -1,0 +1,473 @@
+{% load static %}
+{% load humanize %}
+
+
+
+<!--https://docs.mifiel.com/es/    https://blog.mifiel.com/api-para-firma-digital/   https://github.com/Mifiel    https://elements.envato.com/es/web-templates/django -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    
+
+    <title>Autorización reporte de crédito | YAAB</title>
+    <style>
+      /*https://img.freepik.com/premium-vector/abstract-white-line-background-vector-illustration_54768-353.jpg?size=626&ext=jpg&ga=GA1.2.269101504.1705502289&semt=sph*/
+
+      /*https://img.freepik.com/free-vector/gray-curve-frame-template-vector_53876-165854.jpg?size=626&ext=jpg&ga=GA1.2.269101504.1705502289&semt=ais*/
+
+      
+      @page{
+        
+        margin: 40pt; 
+        size: a4 portrait;
+        background-image: url('https://lh3.googleusercontent.com/pw/ABLVV8419I8PA5y6kyraJzIsy2NX2hPMUce36KUFl1Va1v3Bh6F0G3X7HPl_EkI2wiV2brEMmObR3n4rEPelF1rixuyFdRjsLA1yZ5txvLklZ-RndNhvOm9tqhg8_bh9BhGWBP2tNofhMw-2RAxdJLSxlJN1nM4WSf7DoVEgjBN1qlld9IV7Cncy8mQPzH2eLbd7VOwiryiko_F-aQml0oDEqa3jMvl8dlea578J-a7xgly8jWOnE2kAoSaXLIXsxwOXvbEONqttgDc94uQj40hvpj3kL1Q_9pJm5jFw45CX49F-9sJ0QDHCmQxJfDZ-Q-kXKn9Pmpy67Km-tS1MEBeA9QEBdDfjZFzsvylHAZ8A5SnWCI3o0QEUOSSH-kRfKCLltxtMtRG69kYkqfeBRRSILEtbX8RkUIBTjks4g3o-Hgi0JfjCjYiaszlqI8CeZYtrDULQUlZURpGfOZR02z3c6OE3TtdGAWCUbX9YAldHrE24FB8QKVaB7fWXz-og9X_-xozpoC9a6MPGzEv7n723pcy_CxUn_9BQb4TTW3emcpvDjlsdFPFoN6I5a1xMt_DPq53pqLvJdKHdPKl_CVd00YuNatvkayAVLfZ7RMyP4FW3ryOYC2j03iexiE4-v9Yyd1QrqC_TYSH0wg2LrQBvX5Avp0c2IHuYewhnciA5OdZAyZY3Pr4TDUFpjxa7YZrnNiRoa49Uv8BUU7BmOCaWq4S84Ah1lvkl0RgTmhNohjhEo9UDRlkqjshL6KWupTg0rQaJ2uYPbvb-h8RaggZOkXtmfjF6jh2Gv7DiwG1MXq0gvQS5ka37Ls-ajv-PIUU8jyU-5l8rflueJluA0NJKTpkqoGa6QpAhDptu5oJ-NOGdv8UYICKprl3wkIl6_xqOVuyMIQ=w621-h878-s-no-gm?authuser=0');
+        
+        
+        
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        
+        
+      }
+
+      h1 {
+        /*border: 3px solid #68686a1a;
+        border-radius: 15px;*/
+        font-size: 16px;
+        text-shadow: rgb(91, 91, 88) 1px 0 10px;
+        padding-top: 20px;
+      }
+
+      p {
+        font-size: 12px;
+        font-weight: 400;
+      }
+
+      pre {
+        font-size: 13px;
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .head-img {
+        width: 100%;
+      }
+
+      table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+      th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            font-size: 12px;
+        }
+      th { /*f2f2f2*/
+            background-color: #d2d1d1;
+        }
+
+      .bordered-span {
+            
+            border: 2px solid #3498db !important; 
+            padding: 50px !important;
+            border-radius: 80px !important; 
+            background-color: #c7c4c4 !important;
+      }
+      .underline {
+        text-decoration: underline;
+      }
+
+      .container-logo{
+        position: relative;
+      }
+      .logo-arriba{
+        position: absolute;
+        top: 50px !important;
+        left: 50px;
+        padding-top: -100px;
+
+      }
+      .pre-campo {
+        
+        background-color: #b9b5b5;
+        /*border: 1px solid #ccc;
+        border-radius: 50%;*/
+        padding: 0;
+        /*overflow-x: auto;*/
+        font-family: 'Courier New', monospace;
+        font-size: 10px;
+      }
+    </style>
+    
+  </head>
+  <body >
+    
+    <br>
+    <br>
+    <img src="{% static 'images/users/user-5.jpg' %}" alt="">
+
+    <!--solicitud grupal-->
+    {% for item in imagen_yaab_url %}
+
+    <div style="text-align: right">
+      <img src="http://127.0.0.1:8000{{ item.top_image.url }}" alt="" />
+    </div>
+
+    {% endfor %}
+
+
+    
+    <h2  style="text-align: center; font-size: 17px; margin: 0">
+      Solicitud de Crédito Grupal
+    </h2>
+
+    <!-- <img src="{{image_path}}" alt="" /> -->
+
+    {% for empleado in nombre %}
+
+    <!--background-color: #6283a1; color: #fff-->
+    <h1 style="margin-bottom: 0; font-size:14px">Datos Personales</h1>
+    
+    <p style="padding-top: 20px">El acreditado(a):</p>
+    
+    <pre style="font-size:13px" >    
+  Nombre(s): <strong >{{ empleado.first_name|title }}</strong>    Apellido Paterno:  <strong>{{empleado.last_name|title}}     </strong>  Apellido Materno:  <strong>{{ empleado.second_name|title }}     </strong> RFC:  <strong>{{empleado.rfc|upper }}</strong>
+    </pre>
+
+    <pre>
+ Fecha de nacimiento:  <strong> {{ empleado.fecha_nac_grupal }}     </strong> E-mail: <strong> {{ empleado.email }}     </strong> País: <strong> {{ empleado.pais|title }}     </strong> 
+    </pre>
+    <pre>
+ Estado: <strong> {{ empleado.estado|title }}     </strong> Estado Civil: <strong>{{ empleado.estado_civil|title }}     </strong> Género: <strong> {{ empleado.genero|title }}     </strong> Número de dependientes: <strong> {{ empleado.numero_dependientes }}     </strong> 
+    </pre>
+
+    <pre>
+ Teléfono: <strong> {{ empleado.telefono_particular }}     </strong>
+    </pre>
+
+    <!--background-color: #6283a1; color: #fff-->
+    <h1 style="margin-bottom: 0">Dirección</h1>
+    <!-- <hr style="margin-top: 0" /> -->
+
+    <pre style="padding-top: 10px">
+ Calle y número: <strong> {{ empleado.calle_numero|title }}     </strong> Colonia: <strong> {{ empleado.colonia|title }}     </strong> Codigo Postal: <strong> {{ empleado.cp }}     </strong> Ciudad: <strong>{{ empleado.ciudad|title }}     </strong> 
+    </pre>
+    <pre>
+ Estado: <strong> {{ empleado.estado_direccion|title }}     </strong> Tipo de vivienda: <strong> {{ empleado.tipo_vivienda|title }}     </strong> Años radicando: <strong> {{ empleado.años_radicando }}     </strong>
+    </pre>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <p style="text-align: center">Digitalmente firmado por:</p>
+    <img
+      src="http://127.0.0.1:8000{{ empleado.firma_imagen.url }}"
+      alt="Firma Digital"
+      id="signature-preview"
+      style="text-align: center; width: 200px"
+    />
+    <p style="text-align: center">_____________________________</p>
+    <p style="text-align: center">
+      {{ empleado.first_name|title }} {{ empleado.last_name|title }}
+      {{empleado.second_name|title }}
+    </p>
+
+    {% endfor %}
+ <!--fin solicitud grupal-->
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    
+    
+     <!-- BURO CREDITO-->
+    {% for item in imagen_yaab_url %}
+    <div style="text-align: right">
+      <img src="http://127.0.0.1:8000{{ item.top_image.url }}" alt="" />
+    </div>
+
+    {% endfor %}
+
+    
+    <br>
+
+    <hr style="margin-bottom: 15px; display:none;" />
+    <h2 style="text-align: center; font-size: 17px; margin: 0px">
+      CARTA DE AUTORIZACIÓN PARA LA CONSULTA EN BURÓ DE CRÉDITO
+    </h2>
+    <hr style="margin: -10px" />
+
+    <br>
+    <br>
+    <p style=" font-size: 13px; text-align:justify">
+      Por este conducto autorizo a YAAB Inversiones y servicios financieros,
+      S.A. de C.V. para que lleve a cabo investigaciones sobre el comportamiento
+      crediticio de la empresa que represento en las Sociedades de Información
+      Crediticia que estime conveniente.
+    </p>
+
+    <p style="padding-top: 5px; font-size: 13px; text-align:justify">
+      Así mismo, declaro que conozco la naturaleza y alcance de la información
+      que se solicitará, del uso que YAAB Inversiones y servicios financieros,
+      S.A. de C.V. hará de tal información y de que esta podrá realizar
+      consultas periódicas de su historial crediticio, durante el tiempo que
+      mantenga relacion juridica con mi representada. Bajo protesta de decir
+      verdad manitiesto SER REPRESENTANTE LEGAL de la Empresa mencionada en esta
+      autorización.
+    </p>
+
+    {% for empleado in nombre %}
+    <pre>
+    
+     Nombre(s): <strong> {{ empleado.first_name|title }} {{empleado.last_name|title}} {{ empleado.second_name|title }}  </strong>  
+    </pre>
+
+    <pre>
+    RFC : <strong> {{empleado.rfc|upper }}  </strong>
+    </pre>
+
+    <pre>
+    Domicilio : <strong> {{ empleado.calle_numero|title }} , {{ empleado.colonia|title }} , {{ empleado.cp|title }} {{ empleado.ciudad|title }} </strong>
+    </pre>
+
+    <pre>
+    Teléfono: <strong> {{ empleado.telefono_particular }}  </strong> 
+    </pre>
+
+    <p style="padding-top: 5px; font-size: 13px; text-align:justify">
+      <strong>Importante: </strong> Estoy consciente y acepto que este documento
+      quede bajo propiedad de YAAB Inversiones y servicios financieros, S.A. de
+      C.V. para efectos de control y cumplimiento del articulo 28 de la Ley para
+      Regular a Las sociedades de información Crediticia.
+    </p>
+
+    <br />
+    <br />
+    
+
+    <p style="text-align: center"> <strong>Digitalmente firmado por:</strong> </p>
+    <img
+      src="http://127.0.0.1:8000{{ empleado.firma_imagen.url }}"
+      alt="Firma Digital"
+      id="signature-preview"
+      style="text-align: center; width: 200px"
+    />
+    <p style="text-align: center; margin:0px;">_____________________________</p>
+    <p style="text-align: center; margin:0px;">
+      <strong>{{ empleado.first_name|title }} {{ empleado.last_name|title }}
+      {{empleado.second_name|title }}</strong>
+    </p>
+
+    <br>
+
+    <p style="text-align: center; margin-top: 50px; font-size: 13px">
+      <strong>La vigencia de esta autorizacion permanecera mientras exista relacion
+      comercial entre el usuario y el cliente.</strong>
+    </p>
+
+    {% endfor %}
+    <!-- FIN BURO CREDITO-->
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!--CARTA RESPONSIVA-->
+     {% for item in imagen_yaab_url %}
+    <div style="text-align: right">
+      <img src="http://127.0.0.1:8000{{ item.top_image.url }}" alt="" />
+    </div>
+
+    {% endfor %}
+    <br>
+    <br>
+    
+    <pre><strong>León, Guanajuato a {{fecha}}.</strong>
+    </pre>
+
+    <br>
+  
+    <h2 style="text-align: center; font-size: 17px; margin: 0px">
+      CARTA RESPONSIVA
+    </h2>
+    {% for empleado in nombre %}
+
+    <p style=" font-size: 13px; text-align:justify">
+      En la ciudad de San Francisco del Rincón, Gto, se reunió el grupo de personas denominado <span> <strong>{{ empleado.first_name|title }} {{ empleado.last_name|title }}
+      {{empleado.second_name|title }}</strong></span>, del cual se anexa lista, quienes se comprometen a cumplir de forma íntegra responsable y de voluntad propia, en plenas facultades mentales, en tiempo y forma con los 14 pagos que cada integrante deberá cubrir en los días y horario establecido. Así mismo todos tienen la responsabilidad de apoyar solidariamente si algún integrante fallare en su obligación de pago. 
+      
+    </p>
+
+    <p style="font-size: 13px; text-align:justify">
+      <strong>Se estableció de común acuerdo multa de $200 pesos que se 
+      depositara a la cuenta de la empresa, a quien incumpla con su obligación puntual de pago.</strong>
+    </p>
+
+    <br>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>NOMBRE COMPLETO Y DOMICILIO </th>                
+                <th>FIRMA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ empleado.first_name|title }} {{ empleado.last_name|title }}
+                {{empleado.second_name|title }}</td>
+                <td>
+                  <img
+                  src="http://127.0.0.1:8000{{ empleado.firma_imagen.url }}"
+                  alt="Firma Digital"
+                  id="signature-preview"
+                  style="text-align: center; width: 200px" />
+                </td>
+            </tr>
+           
+            
+        </tbody>
+    </table>
+
+    {% endfor %}
+
+    <!--FIN CARTA RESPONSIVA-->
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!--PAGARE-->
+
+    {% for item in imagen_yaab_url %}
+    <div style="text-align: right">
+      <img src="http://127.0.0.1:8000{{ item.top_image.url }}" alt="" />
+    </div>
+
+    {% endfor %}
+     
+    <h2 style="text-align: left; font-size: 20px; margin: 0px">
+      PAGARE
+    </h2>
+  
+    <pre>                                                                                                                                <strong>Bueno por $ {{monto_grupal|intcomma}} Pesos.</strong>
+    </pre>
+
+    <br>
+    
+    <pre><strong>León, Guanajuato a {{ fecha }}.</strong>
+    </pre>
+
+    {% for empleado in nombre %}
+
+    <p style="padding-top: 10px; font-size: 13px; text-align:justify">
+     Por este pagaré las personas que suscribimos el mismo, reconocemos deber y prometemos pagar incondicionalmente en esta ciudad o en cualquier otra ciudad en que se nos requiera el pago, a la orden de <strong>YAAB INVERSIONES Y SERVICIOS FINANCIEROS SA de CV </strong> por medio de transferencia electrónica o depósito bancario a la cuenta <strong>0404059530201</strong> del banco "Banco del Bajío S.A. Institución de Banca Múltiple" al día de su vencimiento el día <span class="underline"><strong>{{fecha}}</strong></span>.
+
+    </p>
+    <p>
+      La cantidad de:
+    </p>
+    <p style="text-align: center; background-color: #d2d1d1; padding-top:5px;">____________<strong>({{monto_letras|upper}} pesos 00/100 M.N.)</strong>____________</p> 
+
+    <br>
+    <p style="font-size: 13px; text-align:justify">
+      Valor recibido a nuestra entera satisfacción. Dicho monto causará una tasa de interés ordinario del ____ % mensual y en caso de no verificarse el pago puntual de dicha tasa al día de su vencimiento, se causará un interés moratorio de _ ____% mensual, hasta su total liquidación. Este pagaré es de tipo mercantil por lo que se rige por la Ley General de Títulos y Operaciones de Crédito.
+    </p>
+    <p style="font-size: 13px; text-align:justify">
+      El presente documento tendrá 14 vencimientos sucesivos semanales a partir del día 18 de diciembre del 2023, semana inmediata posterior a la suscripción del presente pagaré, verificándose los vencimientos en cada una de las semanas correspondientes. La falta de pago de cualquiera de las amortizaciones en las fechas establecidas dará por vencida la totalidad de adeudo en forma anticipada y el tenedor podrá requerir indistintamente a cualquiera de los suscriptores el pago total del presente pagaré más todos sus accesorios financieros, ante la instancia judicial competente. Constituyéndose todos y cada uno de los suscriptores en avales y deudores solidarios respectivamente, renunciando expresamente a los beneficios de orden y excusión señalados en la ley.
+    </p>
+  
+    <table>
+        <thead>
+            <tr>
+                <th>NOMBRE COMPLETO Y DOMICILIO </th>                
+                <th>FIRMA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ empleado.first_name|title }} {{ empleado.last_name|title }}
+                {{empleado.second_name|title }}</td>
+                <td>
+                  <img
+                  src="http://127.0.0.1:8000{{ empleado.firma_imagen.url }}"
+                  alt="Firma Digital"
+                  id="signature-preview"
+                  style="text-align: center; width: 200px" />
+                </td>
+            </tr>
+
+    <!--fin PAGARE-->
+           
+            
+        </tbody>
+    </table>
+
+
+    {% endfor %}
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    >
+    </script>
+    
+  </body>
+</html>

@@ -1,0 +1,276 @@
+
+
+{% extends "dashboard/index.html" %}
+<!---->
+{% load static %}
+<!---->
+{% load humanize %}
+{% block title %}Calificaciones{% endblock title %}
+<!---->
+{% block extra_css %}
+
+
+
+<!-- third party css -->
+<link
+  href="{% static 'libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-select-bs5/css//select.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<!-- third party css end -->
+
+{% endblock extra_css %}
+<!---->
+{% block topbar %}
+<!---->
+<!---->
+{% include "partials/topbar.html" with pagetitle="Registro pagos" %}
+<!---->
+{% endblock topbar %}
+<!---->
+{% block content %}
+
+<style>
+
+  .borde{
+    transition: box-shadow 0.5s ease-in-out;
+  }
+
+  .borde:hover{
+    box-shadow: 5px 3px 3px rgb(177, 177, 177);
+    border-radius: 10px;
+  }
+
+  .carta{
+    transition: background-color 0.6s ease-in-out;
+  }
+
+  .carta:hover{
+    background-color: rgb(113, 116, 116);
+    color: white;
+  }
+
+  .card-text {
+    /* Estilos originales aquí */
+    transition: background-color 0.8s ease-in-out, border-radius 0.8s ease-in-out, color 0.8s ease-in-out,text-align 0.8s ease-in-out;
+  }
+
+  .card-text:hover{
+    /*background-color: rgb(78, 81, 81);
+    border-radius: 5px;
+    color: white;*/
+    text-align: center;
+    
+  }
+
+</style>
+
+
+
+
+<!--plazo-->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Control de pagos</h4>
+                <p class="text-muted font-14 mb-3">
+                  En esta vista podrás llevar el control pagos de los préstamos de los clientes
+                </p>
+
+                <div class="w-25">
+                  <!-- <h1>Registro de Pagos</h1> -->
+                 <form method="post"  enctype="multipart/form-data">
+                   {% csrf_token %}
+                   {{ form.as_p }}
+                  
+                   <button type="submit" class="btn btn-secondary" > Guardar</button>
+                 </form>
+
+                </div>
+                               
+                
+               
+            </div>
+        </div>
+       
+    </div>
+</div> <!-- end row -->
+<!--plazo-->
+
+
+
+
+
+{% include "partials/footer.html" %}
+<!---->
+{% endblock content %}
+<!---->
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+  //id_num_contrato
+  $(document).ready(function () {
+    $("#").change(function () {
+      var selectedProduct = $(this).val();
+      if (selectedProduct) {
+        // Realiza una solicitud AJAX al servidor para obtener el interés del producto seleccionado
+        $.ajax({
+          url: "{% url 'calificaciones_app:obtener_monto_total' %}", // Reemplaza con la URL correcta
+          data: {
+            num_contrato_id: selectedProduct,
+          },
+          success: function (data) {
+            // Rellena el campo interest_rate con el valor recibido
+            console.log('soy data',data);
+            $("#id_monto_total_registro").val(data.monto_total);
+            $("#id_usuario").val(data.usuario); 
+          },
+        });
+      } else {
+        // Borra el campo interest_rate si no hay selección
+        $("#id_monto_total_registro").val("");
+        $("#id_usuario").val("");
+        
+      };
+    });
+  });
+    
+</script>
+
+<script>
+  /*
+    document.addEventListener('DOMContentLoaded', function() {
+        var numContratoSelect = document.getElementById('id_num_contrato');
+        var montoTotalInput = document.getElementById('id_monto_total');
+
+        numContratoSelect.addEventListener('change', function() {
+            var numContratoId = this.value;
+            console.log('hola',numContratoId)
+
+            // Realiza una solicitud Ajax para obtener el monto_total
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    montoTotalInput.value = data.monto_total;
+                    console.log('hola',data)
+                }
+            };
+            
+
+            xhr.open('GET', '/ruta-de-tu-vista-obtener-monto/?num_contrato_id=' + numContratoId, true);
+            xhr.send();
+        });
+    });
+    */
+</script>
+
+<script>
+  /*
+  $(document).ready(function(){
+      $("#id_num_contrato").change(function(){
+          var numContratoId = $(this).val();
+          console.log('soy',numContratoId);
+
+          // Realiza una solicitud Ajax para obtener el monto_total
+          $.ajax({
+              url: 'calificaciones/ruta-de-tu-vista-obtener-monto/',  // Reemplaza con la URL de tu vista
+              data: {'num_contrato_id': numContratoId},
+              dataType: 'json',
+              success: function(data){
+                console.log('soy-data',numContratoId);
+                $("#id_monto_total").val(data.monto_total_registro);
+              }
+          });
+      });
+  });
+  */
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+  /*
+    $(document).ready(function () {
+      var numContratoField = $('#id_num_contrato');
+      var usuarioField = $('#id_usuario');
+      var montoTotalField = $('#id_monto_total');
+
+      // Oculta los campos de usuario y monto_total al cargar la página
+      usuarioField.hide();
+      montoTotalField.hide();
+
+      // Maneja el evento de cambio en el campo de num_contrato
+      numContratoField.change(function () {
+          var selectedNumContrato = $(this).val();
+          if (selectedNumContrato) {
+              // Realiza una petición AJAX para obtener los datos de EstatusCredito
+              $.ajax({
+                  url: 'calificaciones/get_estatus_credito_data/' + selectedNumContrato + '/',
+                  type: 'GET',
+                  success: function (data) {
+                      console.log('soy data', data);
+
+                      // Actualiza los campos de usuario y monto_total
+                      usuarioField.val(data.usuario);
+                      montoTotalField.val(data.monto_total);
+
+                      // Muestra los campos actualizados
+                      usuarioField.show();
+                      montoTotalField.show();
+                  },
+                  error: function (error) {
+                      console.log(error);
+                  }
+              });
+          } else {
+              // Oculta los campos si no hay un valor seleccionado
+              usuarioField.hide();
+              montoTotalField.hide();
+          }
+      });
+  });
+  */
+</script>
+
+<!-- third party js -->
+<script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js' %}"></>
+<script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-select/js/dataTables.select.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+<!-- third party js ends -->
+
+<!-- Datatables init -->
+<script src="{% static 'js/pages/datatables.init.js' %}"></script>
+
+
+
+
+
+{% endblock extra_js %}

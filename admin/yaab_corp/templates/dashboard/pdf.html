@@ -1,0 +1,202 @@
+{% load static %}
+
+<!--https://docs.mifiel.com/es/    https://blog.mifiel.com/api-para-firma-digital/   https://github.com/Mifiel    https://elements.envato.com/es/web-templates/django -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Solicitud de credito | YAAB</title>
+    <style>
+      
+      @page{
+        
+        margin: 40pt; 
+        size: a4 portrait;
+        background-image: url('https://lh3.googleusercontent.com/pw/ABLVV8419I8PA5y6kyraJzIsy2NX2hPMUce36KUFl1Va1v3Bh6F0G3X7HPl_EkI2wiV2brEMmObR3n4rEPelF1rixuyFdRjsLA1yZ5txvLklZ-RndNhvOm9tqhg8_bh9BhGWBP2tNofhMw-2RAxdJLSxlJN1nM4WSf7DoVEgjBN1qlld9IV7Cncy8mQPzH2eLbd7VOwiryiko_F-aQml0oDEqa3jMvl8dlea578J-a7xgly8jWOnE2kAoSaXLIXsxwOXvbEONqttgDc94uQj40hvpj3kL1Q_9pJm5jFw45CX49F-9sJ0QDHCmQxJfDZ-Q-kXKn9Pmpy67Km-tS1MEBeA9QEBdDfjZFzsvylHAZ8A5SnWCI3o0QEUOSSH-kRfKCLltxtMtRG69kYkqfeBRRSILEtbX8RkUIBTjks4g3o-Hgi0JfjCjYiaszlqI8CeZYtrDULQUlZURpGfOZR02z3c6OE3TtdGAWCUbX9YAldHrE24FB8QKVaB7fWXz-og9X_-xozpoC9a6MPGzEv7n723pcy_CxUn_9BQb4TTW3emcpvDjlsdFPFoN6I5a1xMt_DPq53pqLvJdKHdPKl_CVd00YuNatvkayAVLfZ7RMyP4FW3ryOYC2j03iexiE4-v9Yyd1QrqC_TYSH0wg2LrQBvX5Avp0c2IHuYewhnciA5OdZAyZY3Pr4TDUFpjxa7YZrnNiRoa49Uv8BUU7BmOCaWq4S84Ah1lvkl0RgTmhNohjhEo9UDRlkqjshL6KWupTg0rQaJ2uYPbvb-h8RaggZOkXtmfjF6jh2Gv7DiwG1MXq0gvQS5ka37Ls-ajv-PIUU8jyU-5l8rflueJluA0NJKTpkqoGa6QpAhDptu5oJ-NOGdv8UYICKprl3wkIl6_xqOVuyMIQ=w621-h878-s-no-gm?authuser=0');
+        background-size:cover; 
+        background-position: center;
+        background-repeat: no-repeat;
+        
+      }
+
+
+      body {
+         margin: 0;
+         padding-top: -20px;
+       
+        /*background: url(../../static/images/landing/para_banners.png); */
+      }
+      h1 {
+        /*border: 3px solid #68686a1a;
+        border-radius: 15px;*/
+        font-size: 16px;
+        text-shadow: rgb(91, 91, 88) 1px 0 10px;
+        padding-top: 20px;       
+      }
+
+      p {
+        font-size: 14px;
+        font-weight: bold;
+        
+      }
+
+      pre {
+        font-size: 13px;
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .head-img{
+         width: 100%;
+         
+         
+            
+      }
+    </style>
+    
+  </head>
+  <body>
+
+   <br>
+   <br>
+   <br>
+   <br>
+    <!-- <h2 style="font-size: 10px">YAAB Tech</h2> -->
+    {% for item in imagen_yaab_url %}
+      
+         <div style="text-align: right">
+            <img src="http://127.0.0.1:8000{{ item.top_image.url }}" alt="" />
+         </div>
+    {% endfor %}
+
+    
+
+    <!--   -->
+    {% for item in imagen_yaab_url %}
+    <img
+      style="text-align: center; margin: 0; "
+      src="http://127.0.0.1:8000{{ item.imagen_perfil.url }}"
+      alt=""
+    />
+    {% endfor %}
+    <br>
+    <br>
+    <br>
+   
+    <h2 style="text-align: center; font-size: 17px; margin: 0">
+      Solicitud de Crédito 
+    </h2>
+
+    <p>{{montos.amount }}</p>
+
+    <!-- <img src="{{image_path}}" alt="" /> -->
+
+    {% for empleado in empleados %}
+    <!--background-color:#6283A1; color:#fff;-->
+    <h1 style="margin-bottom: 0;  ">Datos Personales</h1>
+    <!-- <hr style="margin-top: 0" /> -->
+    <p style="padding-top: 20px">El acreditado(a):</p>
+
+    <pre>    
+  Nombre(s):  <strong> {{ empleado.first_name }}     </strong>   Apellido Paterno:  <strong>{{empleado.last_name}}     </strong>  Apellido Materno:  <strong>{{ empleado.second_name }}     </strong> RFC:  <strong>{{empleado.rfc }}</strong>
+    </pre>
+
+    <pre>
+ Fecha de nacimiento:  <strong> {{ empleado.fecha_nac }}     </strong> Nacionalidad: <strong> {{ empleado.nacionalidad }}     </strong> País: <strong> {{ empleado.pais }}     </strong> Estado: <strong> {{ empleado.estado }}     </strong>
+    </pre>
+    <pre>
+ Estado Civil: <strong>{{ empleado.estado_civil }}     </strong> Género: <strong> {{ empleado.genero }}     </strong> Número de dependientes: <strong> {{ empleado.numero_dependientes }}     </strong> Celular: <strong> {{ empleado.celular }}     </strong>
+    </pre>
+
+    <pre>
+ Teléfono: <strong> {{ empleado.telefono_particular }}     </strong>
+    </pre>
+
+    <h1 style="margin-bottom: 0;  ">Dirección</h1>
+    <!-- <hr style="margin-top: 0" /> -->
+
+    <pre style="padding-top: 10px">
+ Calle y número: <strong> {{ empleado.calle_numero }}     </strong> Colonia: <strong> {{ empleado.colonia }}     </strong> Codigo Postal: <strong> {{ empleado.cp }}     </strong> Ciudad: <strong>{{ empleado.ciudad }}     </strong> 
+    </pre>
+    <pre>
+ Estado: <strong> {{ empleado.estado_direccion }}     </strong> Tipo de vivienda: <strong> {{ empleado.tipo_vivienda }}     </strong> Años radicando: <strong> {{ empleado.años_radicando }}     </strong>
+    </pre>
+
+    <h1 style="margin-bottom: 0;  ">Referencias</h1>
+    <!-- <hr style="margin-top: 0" /> -->
+
+    <pre style="padding-top: 10px">
+ Nombre del conyuge: <strong> {{ empleado.conyuge_pareja }}     </strong> Lugar de trabajo del conyuge: <strong> {{ empleado.trabajo_conyuge }}     </strong> Antiguedad laboral: <strong> {{ empleado.antiguedad_laboral_conyuge }} años     </strong> 
+    </pre>
+    <pre>
+ Teléfono: <strong> {{ empleado.telefono_conyuge }}     </strong> Refrencia personal: <strong> {{ empleado.referencia_personal_conyuge_1 }}     </strong> Teléfono: <strong> {{ empleado.telefono_ref_conyuge_1 }}     </strong> Teléfono: <strong> {{ empleado.telefono_ref_conyuge_2 }}     </strong>
+    </pre>
+    <pre>
+ Refrencia personal: <strong> {{ empleado.referencia_personal_conyuge_2 }}     </strong>  
+    </pre>
+
+    <h1 style="margin-bottom: 0;  ">Datos del comercio</h1>
+    <!-- <hr style="margin-top: 0" /> -->
+    <pre style="padding-top: 10px">
+ Nombredel negocio: <strong> {{ empleado.nombre_negocio }}     </strong> Giro: <strong> {{ empleado.giro }}     </strong> El inmueble es: <strong> {{ empleado.inmueble }}     </strong> Años en el negocio: <strong> {{ empleado.años_antiguedad }}     </strong> 
+    </pre>
+    <pre>
+ Calle y número: <strong> {{ empleado.calle_numero_negocio }}     </strong> Colonia: <strong> {{ empleado.colonia_negocio }}     </strong> CP: <strong> {{ empleado.cp_negocio }}     </strong> Ciudad: <strong> {{ empleado.ciudad_negocio }}</strong>  Estado: <strong> {{ empleado.estado_negocio }}      </strong>
+
+    </pre>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 style="margin-bottom: 0;  ">Datos del Aval</h1>
+    <hr style="margin-top: 0" />
+    <pre style="padding-top: 10px">
+ Nombre: <strong> {{ empleado.nombre_aval }} </strong> <strong> {{ empleado.primer_apellido }}</strong>  <strong> {{ empleado.segundo_apellido }}     </strong> Fecha de nacimiento: <strong> {{ empleado.fecha_nac_aval }}     </strong>  Ciudad: <strong> {{ empleado.ciudad_aval }}     </strong>
+    </pre>
+    <pre>
+ Estado: <strong> {{ empleado.estado_aval }}     </strong> RFC: <strong> {{ empleado.rfc_aval }}     </strong> Calle y número: <strong> {{ empleado.calle_numero_aval }}     </strong> Colonia: <strong>{{ empleado.colonia_aval }}     </strong>  
+    </pre>
+    <pre>
+ CP: <strong> {{ empleado.cp_aval }}     </strong>  Relacion con el titular: <strong> {{ empleado.relacion_titular }}     </strong> Tipo de vivienda: <strong> {{ empleado.tipo_vivienda_aval }}     </strong> Años radicando: <strong> {{ empleado.años_radicando_aval }}     </strong> 
+    </pre>
+    <pre>
+ Lugar de trabajo: <strong> {{ empleado.lugar_trabajo_aval }}     </strong> Antiguedad laboral: <strong> {{ empleado.antiguedad_trabajo_aval }}     </strong> Celular: <strong> {{ empleado.celular_aval }}     </strong> Correo: <strong> {{ empleado.email_aval }}     </strong>
+     </pre>
+    <pre>
+ Genero: <strong> {{ empleado.genero_aval }}     </strong> Telefono laboral: <strong> {{ empleado.telefono_laboral_aval }}     </strong> 
+     </pre>
+
+
+     <p style="text-align: center; margin-top:20px;">Digitalmente firmado por:</p>
+    <img
+      src="http://127.0.0.1:8000{{ empleado.firma_imagen_personal.url }}"
+      alt="Firma Digital"
+      id="signature-preview"
+      style="text-align: center; width: 200px"
+    />
+    <p style="text-align: center">_____________________________</p>
+    <p style="text-align: center">
+      {{ empleado.first_name|title }} {{ empleado.last_name|title }}
+      {{empleado.second_name|title }}
+    </p>
+
+
+
+    {% endfor %}
+  </body>
+</html>

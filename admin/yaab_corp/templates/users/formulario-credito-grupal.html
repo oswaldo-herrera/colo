@@ -1,0 +1,483 @@
+{% extends "partials/layout-vertical.html" %}
+<!---->
+{% load static %}
+<!---->
+{% block title %}Dashboard{% endblock title %}
+<!---->
+{% block extra_css %}
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/signature_pad/dist/signature-pad.css"> -->
+    
+<!---->
+{% endblock extra_css %}
+<!---->
+{% block topbar %}
+<!---->
+<!---->
+{%include "partials/topbar.html" with pagetitle="Registro Credito Grupal"%}
+<!---->
+{% endblock topbar %}
+<!---->
+{% block content %}
+
+        <div class="modal-body">
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="usuario-tab" data-bs-toggle="tab" aria-current="page" href="#datos_personales">Datos Personales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="usuario-tab" data-bs-toggle="tab" aria-current="page" href="#direccion">Direccion</a>
+                </li>
+               
+            </ul>
+            <form
+     
+            method="POST"
+            enctype="multipart/form-data"
+            
+            id="completar_registro"
+            
+            >
+            {% csrf_token %}
+            <div class="tab-content mt-2">
+                <div class="tab-pane fade active show mt-1" id="datos_personales">
+                    <div class="row ">
+                        
+                        <div class="col mb-3">                            
+                            <label for="email">Email:</label>                            
+                                {{form.email}}                           
+                        </div>
+
+                        <div class="col mb-3">
+                            <label  for="first-name">Nombre:  </label>
+                            {{form.first_name}}
+                        </div>
+                                        
+                    </div>
+
+                    <div class="row">
+
+                        
+                        <div class="col  mb-3">                            
+                            <label  for="second-name">Apellido paterno:</label>
+                            {{form.last_name}}                                
+                        </div>
+
+                        <div class="col  mb-3">                            
+                            <label for="first-name">Apellido materno:</label>
+                                {{form.second_name}}                                
+                        </div>
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            <label for="first-name">Fecha Nac. : </label>
+                            {{form.fecha_nac_grupal}}
+                        </div>
+
+                        <div class="col  mb-3">
+                            <label for="first-name">Teléfono particular: </label>
+                            {{form.telefono_particular}}                             
+                        </div>
+
+                    </div>
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">RFC: 
+                                </label>
+                                
+                                {{form.rfc}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Etado civil: 
+                                </label>
+                                
+                                {{form.estado_civil}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Genero: 
+                                </label>
+                                
+                                {{form.genero}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Nacionalidad: 
+                                </label>
+                                
+                                {{form.nacionalidad}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Pais: 
+                                </label>
+                                
+                                {{form.pais}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Estado: 
+                                </label>
+                                
+                                {{form.estado}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Celular: 
+                                </label>
+                                
+                                {{form.celular}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Dependientes: 
+                                </label>
+                                
+                                {{form.numero_dependientes}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">CURP: 
+                                </label>
+                                
+                                {{form.curp}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">INE
+                                </label>
+                                
+                                {{form.documento_ine_grupal}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col mb-3">
+                             <label for="first-name">Token : </label>
+                            {{form.token}}
+                        </div>
+                        <div class="col">
+                            <label for="first-name">CURP : </label>
+                            {{form.curp_texto}}
+                        </div>
+                    </div>
+
+                    <!--width="400"-->
+                    <div class="row">
+                        <div class="col d-flex flex-column">
+                            <label for="signature-pad" class="mb-2">Ingresa tu firma:  </label>
+                            <canvas id="signature-pad" class="signature-pad border border-secondary border-3 rounded " width="400"  height="80" ></canvas>
+                            <br>
+                            <button class="btn btn-secondary w-25" type="button"  id="clear-signature">Corregir firma</button>
+                            
+                            <input type="hidden" id="signature-data" name="signature" />
+
+                        </div>
+                        <div class="col"></div>
+                    </div>
+
+                </div>
+                    
+                <div class="tab-pane fade show mt-1" id="direccion">
+                    <div class="row ">
+                        
+                        <div class="col mb-43>
+                            
+                                <label for="first-name">Calle y Numero:
+                                </label>
+                                
+                                {{form.calle_numero}}
+                                
+                            
+                        </div>
+                        
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Colonia: 
+                                </label>
+                                
+                                {{form.colonia}}
+                                
+                            
+                        </div>
+
+                        
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">C.P.: 
+                                </label>
+                                
+                                {{form.cp}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Ciudad:
+                                </label>
+                                
+                                {{form.ciudad}}
+                                
+                            
+                        </div>
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Estado: 
+                                </label>
+                                
+                                {{form.estado_direccion}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Tipo de vivienda: 
+                                </label>
+                                
+                                {{form.tipo_vivienda}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row ">
+                        
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Años radicando: 
+                                </label>
+                                
+                                {{form.años_radicando}}
+                                
+                            
+                        </div>
+
+                        <div class="col  mb-3">
+                            
+                                <label for="first-name">Comprobante domicilio:
+                                </label>
+                                
+                                {{form.comprobante_domicilio}}
+                                
+                            
+                        </div>
+
+                    </div>
+
+                </div> 
+                
+            </div>
+
+          <div class="modal-footer">
+            <div class="form-check">
+                {{form.buro_credito_grupal}}
+                <label  for="first-name"> Acepto se realice la consulta al <a href="{% url 'user_app:buro_credito' %}" target="_blank" class="text-dark" style="text-decoration: underline;">Buró de crédito</a></label>
+            </div>
+            {{form.aviso_privacidad_grupal}}
+                <label  for="first-name"> Leí y acepto el <a href="{% url 'user_app:aviso_privacidad_grupal' %}" target="_blank" class="text-dark" style="text-decoration: underline;">Aviso de privacidad</a></label>
+
+            <!-- <input type="checkbox" class="form-check-input" id="checkbox-signup">
+                    <label class="form-check-label" for="checkbox-signup"> </label> -->
+            <button id="solicitud_enviar" type="submit" class="btn btn-secondary">
+              Registrar Datos
+            </button>
+
+            <!-- <div id="notificacion" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            Tu solicitud se envió correctamente
+            </div> -->
+          </div>
+        </div>
+      </form>
+
+    <a href="{% url 'dashboard_app:generar_pdf' %}?token={{ token }}" target="_blank" class=" ">
+                    Consulta Buró de Crédito
+    </a>
+
+
+
+
+<!-- Modal -->
+<div class="modal" id="buroCredito" data-bs-backdrop="static">
+    <div class="modal-dialog mt-5">
+        <div class="modal-content mt-5">
+            <!-- Contenido del modal -->
+            <div class="modal-header">
+                <h4 class="modal-title">¡Datos Guardados!</h4>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body mx-auto pb-4">
+                <h5 class="pt-3 text-center">Acepto se realice la consulta al </h5>
+                 
+                
+
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script>
+        let canvas = document.getElementById('signature-pad');
+        let signaturePad = new SignaturePad(canvas);
+
+        function cargarFirmaExistente(firmaBase64) {
+            if (firmaBase64) {
+                // Cargar la firma en el canvas si existe
+                let image = new Image();
+                image.src = firmaBase64;
+                image.onload = function () {
+                    signaturePad.clear(); // Limpiar el canvas
+                    signaturePad.fromDataURL(firmaBase64); // Mostrar la firma en el canvas
+                };
+            }
+        }
+
+        // Verificar si hay una firma existente en la página cargada
+        let firmaBase64Existente = '{{ firma_digital }}'; // Esto debe ser proporcionado desde tu backend, puede ser una variable de Django
+        cargarFirmaExistente(firmaBase64Existente);
+
+        document.getElementById('clear-signature').addEventListener('click', function() {
+            signaturePad.clear();
+        });
+
+        // Envía la firma al backend cuando sea necesario, por ejemplo, al guardar el PDF
+        //function guardarFirma() {
+        //    let signatureData = signaturePad.toDataURL(); // Obtener la firma como base64
+
+            // Guardar la firma en el campo oculto
+        //    document.getElementById('signature-data').value = signatureData;
+        //}
+    </script>
+    
+  
+    <script>
+        $('#completar_registro').submit(function (event) {
+            event.preventDefault(); // Evitar el envío predeterminado
+
+            // Obtener la imagen de la firma como base64
+            const signatureData = signaturePad.toDataURL();
+            cargarFirmaExistente(firmaBase64Existente);
+
+            // Asignar la firma al campo oculto del formulario
+            $('#signature-data').val(signatureData);
+
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'), // url de la funcion
+                data: $(this).serialize(), // Envía los datos del formulario
+                success: function (response) {
+                    // Simular un tiempo de espera antes de mostrar el modal (2 segundos)
+                    setTimeout(function () {
+                        // Mostrar el modal después de que los datos se guarden correctamente
+                        //$('#buroCredito').modal('show');
+                         Swal.fire({
+                            icon: "success",
+                            title: "¡ Tus datos fueron registrados correctamente !",
+                            //text: "Esta seguro de autorizar el crédito",
+                            showCancelButton: true,
+                            showCancelButton:false,
+                            confirmButtonText: "Aceptar",
+                        }).then((result)=> {
+                            window.location.href = "{% url 'landing_app:landing' %}"
+                        })
+                    }, 2000);
+                },
+                error: function (error) {
+                    // Manejar errores si la solicitud a Django falla
+                    console.error('Error al guardar en Django:', error);
+                }
+            });
+        });
+
+    </script>
+
+    <script>
+
+        $(document).ready(function(){
+            // Selecciona el campo de fecha y aplica el datepicker
+            $('#id_fecha_nac_grupal').datepicker({
+                dateFormat: 'yy-mm-dd',  // Establece el formato de la fecha
+                changeYear: true,        // Opcional: permite cambiar el año
+                changeMonth: true        // Opcional: permite cambiar el mes
+            });
+        });
+        
+        
+    </script>
+
+    
+{% endblock extra_js %}

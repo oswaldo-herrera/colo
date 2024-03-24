@@ -1,0 +1,495 @@
+{% extends "dashboard/index.html" %}
+<!---->
+{% load static %}
+<!---->
+{% block title %}Bandeja|Solicitud{% endblock title %}
+<!---->
+{% block extra_css %}
+
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        // Busca el token CSRF usando el nombre del cookie
+        if (cookie.startsWith(name + "=")) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
+
+<!-- third party css -->
+<link
+  href="{% static 'libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-select-bs5/css//select.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<!-- third party css end -->
+
+{% endblock extra_css %}
+<!---->
+{% block topbar %}
+<!---->
+<!---->
+{% include "partials/topbar.html" with pagetitle="Control de autorización" %}
+<!---->
+{% endblock topbar %}
+<!---->
+{% block content %}
+
+<!--productos-->
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="mt-0 header-title">Solicitudes pendientes</h4>
+        <!-- <p class="text-muted font-14 mb-3">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut corrupti incidunt expedita ea! Aut amet explicabo nisi suscipit repellendus, perferendis culpa 
+                </p> -->
+
+        <!--id="key-table"    table dt-responsive nowrap table-hover-->
+        <table id="datatable" class="table dt-responsive nowrap table-hover">
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Nombre</th>
+              <th>Apellido Paterno</th>
+              <th>Apellido Materno</th>
+              <th>Acciones</th>
+              <!-- <th>Acciones</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in usuarios %}
+            <tr id="usuario_{{ item.id }}" class="usuario-row">
+              <td>{{item.email}}</td>
+              <td>{{item.first_name | upper}}</td>
+              <td>{{item.last_name | upper}}</td>
+              <td>{{item.second_name | upper}}</td>
+              <td>
+                <div class="dropdown">
+                  <a
+                    class="dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i
+                      class="mdi mdi-playlist-plus"
+                      style="color: black; font-size: 18px"
+                    ></i>
+                  </a>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <button
+                      type="button"
+                      class="solicitud btn btn-secondary mx-1"
+                      data-id="{{item.id}}"
+                    >
+                      Autorizar
+                    </button>
+
+                    <button
+                      type="button"
+                      class="rechazado btn btn-secondary mx-1"
+                      data-id="{{item.id}}"
+                    >
+                      Rechazar
+                    </button>
+                  </div>
+                </div>
+              </td>
+              <!--<input type="checkbox" class="solicitud" data-id="{{item.id}}" >-->
+              <!-- <td>
+                        <div class="dropdown">
+                            <a
+                            class="dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            >
+                            <i class="mdi mdi-playlist-plus" style="color: black; font-size:18px;"></i>
+                            </a>
+                            <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                            >
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#actualizarUsuariosModal"
+                                
+                            >
+                                Editar
+                            </button>
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#eliminarUsuarioModal"
+                                
+                            >
+                                Eliminar
+                            </button>
+                            </div>
+                        </div>
+                        </td> -->
+            </tr>
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="mt-0 header-title">Solicitudes grupales pendientes</h4>
+
+        <table
+          id="responsive-datatable"
+          class="table dt-responsive nowrap table-hover"
+        >
+          <thead>
+            <tr>
+              <th>Participante</th>
+              <th>Nombre</th>
+              <th>Apellido Paterno</th>
+              <th>Apellido Materno</th>
+              <!-- <th>Acciones</th> -->
+              <th>Coordinador</th>
+              
+              <!-- <th>Acciones</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in grupos_creditos %}
+            <div>
+              <tr id="usuario_{{ item.id }}" class="usuario-row">
+                <td>{{item.email}}</td>
+                <td>{{item.first_name | upper}}</td>
+                <td>{{item.last_name | upper}}</td>
+                <td>{{item.second_name | upper}}</td>
+                <!-- <td>
+                  <div class="dropdown">
+                    <a
+                      class="dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i
+                        class="mdi mdi-playlist-plus"
+                        style="color: black; font-size: 18px"
+                      ></i>
+                    </a>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <button
+                        type="button"
+                        class="solicitud btn btn-secondary mx-1"
+                        data-id="{{item.id}}"
+                      >
+                        Autorizar
+                      </button>
+
+                      <button
+                        type="button"
+                        class="rechazado btn btn-secondary mx-1"
+                        data-id="{{item.id}}"
+                      >
+                        Rechazar
+                      </button>
+                    </div>
+                  </div>
+                </td> -->
+                <td>
+                  {% if item.correos_lista %}
+                  {{ item.correos_credito.names_grupal|upper }} {{ item.correos_credito.surnames_grupal|upper }}
+                  <!-- <ul>
+                     for correo in item.correos_lista 
+                    <li>{{ correo.names_grupal }}</li>
+                     endfor 
+                  </ul> -->
+                  {% else %}
+                  <p>No hay detalles de correos disponibles para este grupo.</p>
+                  {% endif %}
+                </td>
+               
+              </tr>
+            </div>
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end row -->
+<!--productos-->
+
+<!--modal eliminar usuarios-->
+<div
+  class="modal fade"
+  id="eliminarUsuarioModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg"></div>
+</div>
+<!--modal eliminar usuarios-->
+
+<!--modal editar usuarios-->
+<div
+  class="modal fade"
+  id="actualizarUsuariosModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg"></div>
+</div>
+<!--modal editar usuarios-->
+
+{% include "partials/footer.html" %}
+<!---->
+{% endblock content %}
+<!---->
+{% block extra_js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<!-- third party js -->
+<script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-select/js/dataTables.select.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+<!-- third party js ends -->
+
+<!-- Datatables init -->
+<script src="{% static 'js/pages/datatables.init.js' %}"></script>
+
+<!---->
+
+<script>
+  $(document).ready(function () {
+    //var botonMostrar = document.querySelector(".solicitud");
+
+    $(document).on("click", ".solicitud", function () {
+      let userId = $(this).data("id");
+
+      let ruta_pdf = `/solicitud/pdf-documento/${userId}/`;
+      //let ruta_pdf = " url 'dashboard_app:pdf_documento' user_id=user_id  ";
+      $.get(ruta_pdf, function (response) {
+        // Puedes hacer algo con la respuesta si es necesario
+        console.log("Solicitud del PDF completada");
+      });
+
+      Swal.fire({
+        icon: "warning",
+        title: "¡Crédito en proceso!",
+        text: "Esta seguro de autorizar el crédito",
+        showCancelButton: true,
+        cancelButtonText: "Cerrar",
+        confirmButtonText: "Confirmar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var userId = $(this).data("id");
+          let ruta_mifiel = `/solicitud/mifiel/${userId}/`;
+          $.get(ruta_mifiel, function (response) {
+            console.log("Solicitud de 'mifiel' completada");
+            // Realiza acciones adicionales si es necesario
+          });
+
+          //$(this).closest('tr').remove();
+
+          $.ajax({
+            url: `/solicitud/marcar-usuario-confirmado/${userId}/`,
+            method: "POST",
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+            },
+            success: function (response) {
+              console.log(response.message);
+
+              // Realiza más acciones si es necesario
+            },
+            error: function (error) {
+              console.error("Error al marcar usuario como confirmado:", error);
+            },
+          });
+
+          window.location.reload();
+        }
+      });
+    });
+
+    $(document).on("click", ".rechazado", function () {
+      let userId = $(this).data("id");
+
+      Swal.fire({
+        icon: "warning",
+        title: "¡Rechazar crédito!",
+        text: "Esta seguro que quieres rechazar el credito",
+        showCancelButton: true,
+        cancelButtonText: "Cerrar",
+        confirmButtonText: "Confirmar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: `/solicitud/rechazado/${userId}/`,
+            method: "POST",
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+            },
+            success: function (response) {
+              console.log(response.message);
+
+              // Realiza más acciones si es necesario
+            },
+            error: function (error) {
+              console.error("Error al marcar usuario como confirmado:", error);
+            },
+          });
+
+          window.location.reload();
+        }
+      });
+    });
+
+    $(".solicitud").on("change", function () {
+      if ($(this).is(":checked")) {
+        // Obtener el <tr> padre
+        let userId = $(this).data("id");
+
+        let ruta_pdf = `/solicitud/pdf-documento/${userId}/`;
+        //let ruta_pdf = " url 'dashboard_app:pdf_documento' user_id=user_id  ";
+        $.get(ruta_pdf, function (response) {
+          // Puedes hacer algo con la respuesta si es necesario
+          console.log("Solicitud del PDF completada");
+        });
+
+        Swal.fire({
+          icon: "warning",
+          title: "¡Crédito en proceso!",
+          text: "Esta seguro de autorizar el crédito",
+          showCancelButton: true,
+          cancelButtonText: "Cerrar",
+          confirmButtonText: "Confirmar",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var userId = $(this).data("id");
+            let ruta_mifiel = `/solicitud/mifiel/${userId}/`;
+            $.get(ruta_mifiel, function (response) {
+              console.log("Solicitud de 'mifiel' completada");
+              // Realiza acciones adicionales si es necesario
+            });
+
+            //$(this).closest('tr').remove();
+
+            $.ajax({
+              url: `/solicitud/marcar-usuario-confirmado/${userId}/`,
+              method: "POST",
+              beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+              },
+              success: function (response) {
+                console.log(response.message);
+
+                // Realiza más acciones si es necesario
+              },
+              error: function (error) {
+                console.error(
+                  "Error al marcar usuario como confirmado:",
+                  error
+                );
+              },
+            });
+
+            window.location.reload();
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    // Escucha el cambio en el checkbox
+    $(".miCheckbox").on("change", function () {
+      // Verifica si el checkbox está marcado
+      if ($(this).is(":checked")) {
+        var userId = $(this).data("id");
+        let ruta_mifiel = `/solicitud/mifiel/${userId}/`;
+        $.get(ruta_mifiel, function (response) {
+          console.log("Solicitud de 'mifiel' completada");
+          // Realiza acciones adicionales si es necesario
+        });
+      }
+    });
+  });
+</script>
+
+<script>
+  //eliminar usuario
+  function eliminarModalUser(url) {
+    $("#eliminarUsuarioModal").load(url, function () {
+      $(this).modal("show");
+    });
+  }
+  //editar usuario
+  function actualizarModalUser(url) {
+    $("#actualizarUsuariosModal").load(url, function () {
+      $(this).modal("show");
+    });
+  }
+</script>
+
+{% endblock extra_js %}

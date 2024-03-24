@@ -1,0 +1,183 @@
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% load i18n %}
+{% load allauth account socialaccount %}
+{% block head_title %}
+    {% trans "" %}
+
+{% endblock head_title %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "partials/title-meta.html" with title="Login | Yaab" %}
+
+{% include "partials/head-css.html" %}
+
+<style>
+    .btn-wsp{
+        position:fixed;
+        width:60px;
+        height:60px;
+        line-height: 63px;
+        bottom:25px;
+        right:25px;
+        background:#3b3d3c;
+        color:#FFF;
+        border-radius:50px;
+        text-align:center;
+        font-size:35px;
+        box-shadow: 0px 1px 10px rgba(0,0,0,0.3);
+        z-index:100;
+        transition: all 300ms ease;
+    }
+    .btn-wsp:hover{
+        background: #d5dbd7;
+    }
+    @media only screen and (min-width:320px) and (max-width:768px){
+        .btn-wsp{
+            width:63px;
+            height:63px;
+            line-height: 66px;
+      }
+    }
+</style>
+
+
+<body class="loading " style="background: url('../../static/images/landing/login.png'); background-size:cover;">
+
+    <div class="account-pages my-3">
+        <div class="container">
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-8 col-xl-5">
+                    <div class="text-center">   
+                        <a href="{% url 'index' %}">
+                            <img src="{% static 'images/landing/financiera_logo.png' %}" alt=""  class="mx-auto">
+                        </a>
+                      
+
+                    </div>
+                    <div class="card">
+                        <div class="card-body p-4">
+                            
+                            <div class="text-center mb-4 d-none">
+                                <h4 class="text-uppercase mt-0">Inicia tu Sesion</h4>
+                            </div>
+
+                            {% block content %}
+                            <div class="text-center">
+                                {% element h1 %}
+                                    {% trans "Sign In" %}
+                                {% endelement %}
+                            </div>
+                            
+                            <p>
+                                {% blocktrans %}Si todavía no ha creado una cuenta, entonces porfavor 
+                            <a href="{{ signup_url }}">registrese</a> primero.{% endblocktrans %}
+                            </p>
+                            {% url 'account_login' as login_url %}
+                            {% element form form=form method="post" action=login_url tags="entrance,login" %}
+                                {% slot body %}
+                                    {% csrf_token %}
+                                    {{form|crispy}}
+                                    <!-- element fields form=form unlabeled=True
+                                    endelement  -->
+                                    {% if redirect_field_value %}
+                                        <input type="hidden"
+                                            name="{{ redirect_field_name }}"
+                                            value="{{ redirect_field_value }}" />
+                                    {% endif %}
+                                    <!-- <a href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a> -->
+                                {% endslot %}
+                                {% slot actions %}
+                                    <button type="submit" class="btn btn-secondary">
+                                        {% trans "Sign In" %}
+                                    </button>
+                                    <!-- element button type="submit" tags="prominent,login" 
+                                         trans "Sign In" 
+                                     endelement  -->
+                                {% endslot %}
+                            {% endelement %}
+                            <!-- include "socialaccount/snippets/login.html" with page_layout="entrance"  -->
+                            {% endblock content %}
+
+                            <form class="d-none" method="POST" action="">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="emailaddress" class="form-label">Email address</label>
+                                    <input type="text" class="form-control"                                 placeholder="Email..."
+                                name="username"
+                                />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="Contraseña"
+                                    name="password"
+                                    />
+                                </div>
+
+                                <div class="mb-3 d-none">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="checkbox-signin" checked>
+                                        <label class="form-check-label" for="checkbox-signin">Recordarme</label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 d-grid text-center">
+                                    <button class="btn btn-secondary" type="submit"> Iniciar Sesion </button>
+                                </div>
+                            </form>
+
+                        </div> <!-- end card-body -->
+                    </div>
+                    <!-- end card -->
+
+                    <div class="row mt-3 d-none">
+                        <div class="col-12 text-center">
+                            <!-- <p> <a href="pages-recoverpw.html" class="text-muted ms-1"><i class="fa fa-lock me-1"></i>Forgot your password?</a></p> -->
+                            <p class="text-light">No tienes cuenta? <a href="{% url 'user_app:registro' %}" class="text-white ms-1"><b>Registrate</b></a></p>
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end row -->
+
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end page -->
+
+    <a href="{% url 'landing_app:landing' %}" class="btn-wsp mb-4" target="_blank">
+	    <i class="mdi mdi-home"></i>
+	  </a>
+
+    <!-- Vendor -->
+    {% include "partials/vendor.html" %}
+
+
+    
+
+
+
+    <!-- App js -->
+    <script src="{% static 'js/app.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        
+</body>
+
+
+
+
+
+
+
+ <!-- extends "account/base_entrance.html"  -->
+

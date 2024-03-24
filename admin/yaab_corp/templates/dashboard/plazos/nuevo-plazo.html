@@ -1,0 +1,41 @@
+{% load static %}
+
+<div
+  class="modal-dialog modal-lg"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title" id="myModalLabel">Modal plazo</h4>
+      <button type="button" class="close" data-bs-dismiss="modal">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <form
+      method="POST"
+      action="{% url 'dashboard_app:nuevo_plazo' %}"
+      enctype="multipart/form-data"
+    >
+        {% csrf_token %}
+        <div class="modal-body">
+          <h1>Plazo</h1>
+
+          {{form.nombre_credito.label_tag}} {{form.nombre_credito}}
+          {{form.plazo_tiempo.label_tag}} {{form.plazo_tiempo}}
+          {{form.interes_credito.label_tag}} {{form.interes_credito}}
+          {{form.interes_moratorio.label_tag}} {{form.interes_moratorio}}
+
+        
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
+          <button type="submit" class="btn btn-primary">Crear</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

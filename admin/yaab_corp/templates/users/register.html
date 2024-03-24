@@ -1,0 +1,141 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "partials/title-meta.html" with title="Registro | Yaab" %}
+
+<style>
+  
+
+    .btn-wsp{
+        position:fixed;
+        width:60px;
+        height:60px;
+        line-height: 63px;
+        bottom:25px;
+        right:25px;
+        background:#3b3d3c;
+        color:#FFF;
+        border-radius:50px;
+        text-align:center;
+        font-size:35px;
+        box-shadow: 0px 1px 10px rgba(0,0,0,0.3);
+        z-index:100;
+        transition: all 300ms ease;
+    }
+    .btn-wsp:hover{
+        background: #d5dbd7;
+    }
+    @media only screen and (min-width:320px) and (max-width:768px){
+        .btn-wsp{
+            width:63px;
+            height:63px;
+            line-height: 66px;
+      }
+    }
+</style>
+
+{% include "partials/head-css.html" %}
+
+
+
+<body class="loading " style="background: url('../../static/images/landing/yaab_corp_reg.png'); background-size:cover;"  >
+
+    <div class="account-pages mt-2 mb-2 bg-register"  >
+        <div class="container ">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-8 col-xl-8">
+                    <div class="text-center">
+                        <a href="{% url 'index' %}">
+                            <img src="" alt="" width="30%" class="mx-auto">
+                        </a>
+                        
+                    </div>
+                    <div class="card">  
+
+                        <div class="card-body p-4">
+                            
+                            <div class="text-center mb-4">
+                                <h4 class="text-uppercase mt-0">Registrate</h4>
+                            </div>
+
+                            <form method="POST" action="" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="fullname" class="form-label">Usuario</label>
+                                        {{form.email}}
+                                    </div>
+                                    <div class="col">
+                                        <label for="emailaddress" class="form-label">Nombres</label>
+                                        {{form.first_name}}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="password" class="form-label">Primer Apellido</label>
+                                        {{form.last_name}}
+                                    </div>
+                                    <div class="col">
+                                        <label for="password" class="form-label">Segundo Apellido</label>
+                                        {{form.second_name}}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="password" class="form-label">contraseña</label>
+                                        {{form.password1}}
+                                    </div>
+                                    <div class="col">
+                                        <label for="password" class="form-label">confirmar contraseña</label>
+                                        {{form.password2}}                                        
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 d-none">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="checkbox-signup">
+                                        <label class="form-check-label" for="checkbox-signup">acepto <a href="javascript: void(0);" class="text-dark">Terminos y condiciones</a></label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 text-center d-grid">
+                                    <button class="btn btn-secondary w-50 mx-auto" type="submit"> Registrar </button>
+                                </div>
+
+                            </form>
+
+                        </div> <!-- end card-body -->
+                    </div>
+                    <!-- end card -->
+
+                    <div class="row mt-3">
+                        <div class="col-12 text-center">
+                            <p class="text-muted">Ya tienes cuenta?  <a href="{% url 'login' %}" class="text-white ms-1"><b>Inicia Sesion aqui</b></a></p>
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end row -->
+
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end page -->
+
+        <a href="{% url 'landing_app:landing' %}" class="btn-wsp mb-4" target="_blank">
+	    <i class="mdi mdi-home"></i>
+	  </a>
+
+    <!-- Vendor -->
+    {% include "partials/vendor.html" %}
+
+    <!-- App js -->
+    <script src="{% static 'js/app.min.js' %}"></script>
+    
+</body>

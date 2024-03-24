@@ -1,0 +1,594 @@
+
+
+{% extends "dashboard/index.html" %}
+<!---->
+{% load static %}
+<!---->
+{% load humanize %}
+{% block title %}Datatables{% endblock title %}
+<!---->
+{% block extra_css %}
+
+
+
+<!-- third party css -->
+<link
+  href="{% static 'libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-select-bs5/css//select.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<!-- third party css end -->
+
+{% endblock extra_css %}
+<!---->
+{% block topbar %}
+<!---->
+<!---->
+{% include "partials/topbar.html" with pagetitle="Productos | Plazos" %}
+<!---->
+{% endblock topbar %}
+<!---->
+{% block content %}
+
+
+<!-- prestamos -->
+
+<div class="row ">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Crea y edita tus productos</h4>
+                <p class="text-muted font-14 mb-3">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut corrupti incidunt expedita ea! Aut amet explicabo nisi suscipit repellendus, perferendis culpa 
+                </p>
+                <div class="d-flex justify-content-end mb-2">
+                    <button type="button" class="btn btn-outline-secondary btn-sm border"          data-bs-toggle="modal" data-bs-target="#productosModal" 
+                    onclick="abrirModalEdicion('{% url 'dashboard_app:nuevo_productos' %} ')" >
+                    <!--url 'dashboard_app:nuevo_productos'      onclick="abrirModalEdicion('')"-->
+                    Nuevo
+                    </button>
+                </div>
+                <!--id="key-table"-->
+                <table id="key-table" class="table dt-responsive nowrap table-hover ">
+                    <thead>
+                    <tr>
+                        <th>Tipo de prestamo</th>
+                        <th>Nombre </th>
+                        <th>Monto</th>
+                        <th>Periodo</th>
+                        <th>Plazo</th>
+                        <th>Interes ordinario</th>
+                        <th>Interes moratorio</th>
+                        <th>Pago mensual</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    
+                    <tr> <!--productos-->
+                      {% for item in prestamos %}
+                      <td>{{item.tipo_prestamo.tipo_credito}}</td>
+                      <td>{{item.nombre_producto}}</td>
+                      <td>{{item.monto}}</td>
+                      <td>{{item.tipo_periodo}}</td>
+                      <td>{{item.plazo}}</td>
+                      <td>{{item.interes_ordinario}}</td>
+                      <td>{{item.interes_moratorio}}</td>
+                      <td>{{item.pago_mensual}}</td>
+                      <td>
+                        <div class="dropdown">
+                          <a
+                            class="dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                          <i class="mdi mdi-playlist-plus" style="color: black; font-size:18px;"></i>
+                          </a>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary btn-sm"
+                              data-bs-toggle="modal"
+                              data-bs-target="#actualizarProductosModal"
+                              onclick="actualizarModalEdicion('{% url 'dashboard_app:editar_productos' pk=item.pk %}')"
+                            >
+                            
+                              Editar
+                            </button>
+
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary btn-sm"
+                              data-bs-toggle="modal"
+                              data-bs-target="#eliminarProductosModal"
+                              onclick="eliminarModalEdicion('{% url 'dashboard_app:eliminar_productos' pk=item.pk %}')"
+                            >
+                            
+                              Eliminar
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      
+                    </tr>
+                    {% endfor %}
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+<!-- prestamos -->
+
+
+<!--productos-->
+<div class="row d-none">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Crea y edita tus productos</h4>
+                <p class="text-muted font-14 mb-3">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut corrupti incidunt expedita ea! Aut amet explicabo nisi suscipit repellendus, perferendis culpa 
+                </p>
+                <div class="d-flex justify-content-end mb-2">
+                    <button type="button" class="btn btn-outline-secondary btn-sm border"          data-bs-toggle="modal" data-bs-target="#productosModal" 
+                    onclick="abrirModalEdicion('{% url 'dashboard_app:nuevo_productos' %} ')" >
+                    <!--url 'dashboard_app:nuevo_productos'      onclick="abrirModalEdicion('')"-->
+                    Nuevo
+                    </button>
+                </div>
+                <!--id="key-table"-->
+                <table id="key-table" class="table dt-responsive nowrap table-hover ">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    
+                    <tr>
+                      {% for item in productos %}
+                      <td>{{item.nombre_credito}}</td>
+                      <td>
+                        <div class="dropdown">
+                          <a
+                            class="dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                          <i class="mdi mdi-playlist-plus" style="color: black; font-size:18px;"></i>
+                          </a>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary btn-sm"
+                              data-bs-toggle="modal"
+                              data-bs-target="#actualizarProductosModal"
+                              onclick="actualizarModalEdicion('{% url 'dashboard_app:editar_productos' pk=item.pk %}')"
+                            >
+                            
+                              Editar
+                            </button>
+
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary btn-sm"
+                              data-bs-toggle="modal"
+                              data-bs-target="#eliminarProductosModal"
+                              onclick="eliminarModalEdicion('{% url 'dashboard_app:eliminar_productos' pk=item.pk %}')"
+                            >
+                            
+                              Eliminar
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      
+                    </tr>
+                    {% endfor %}
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+       
+    </div>
+</div> <!-- end row -->
+<!--productos-->
+
+
+<!--plazo-->
+<div class="row d-none">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Crea y edita tus plazos</h4>
+                <p class="text-muted font-14 mb-3">
+                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut corrupti incidunt expedita ea! Aut amet explicabo nisi suscipit repellendus, perferendis culpa
+                </p>
+                <div class="d-flex justify-content-end mb-2">
+                    <button type="button" class="btn btn-outline-secondary btn-sm border"         data-bs-toggle="modal" data-bs-target="#plazoModal" 
+                    onclick="plazoModal('{% url 'dashboard_app:nuevo_plazo' %}')">
+                    <!--url 'dashboard_app:nuevo_plazo'-->
+                    Nuevo
+                    </button>
+                </div>
+                
+                <table id="datatable" class="table dt-responsive nowrap table-hover">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Tipo</th>
+                      <th>Interes ordinario</th>
+                       <th>Interes moratorio</th>
+                      <!-- <th>Opción 2</th>
+                      <th>Opción 3</th> -->
+                      <th class="">Acciones</th>
+                      <!-- <th>Username</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in plazo %}
+                    <tr>
+                      <td>{{item.nombre_credito}}</td>
+                      <td>{{item.plazo_tiempo}}</td>
+                      <td>{{item.interes_credito}}</td>
+                       <td>{{item.interes_moratorio}}</td>
+                    
+                      <td class="">
+                        <div class="dropdown">
+                          <a
+                            class="dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                          <i class="mdi mdi-playlist-plus" style="color: black; font-size:18px;"></i>
+                          </a>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary btn-sm"
+                              data-bs-toggle="modal"
+                              data-bs-target="#actualizarPlazoModal"
+                              onclick="actualizarModalPlazo('{% url 'dashboard_app:editar_plazo' pk=item.pk %}')"
+                            >
+                              Editar
+                            </button>
+
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary btn-sm"
+                              data-bs-toggle="modal"
+                              data-bs-target="#eliminarPlazoModal"
+                              onclick="eliminarModalPlazo('{% url 'dashboard_app:eliminar_plazo' pk=item.pk %}')"
+                            >
+                              Eliminar
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <!-- <td>@mdo</td> -->
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+        </div>
+       
+    </div>
+</div> <!-- end row -->
+<!--plazo-->
+
+<!--grupales-->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Crea créditos grupales</h4>
+                <p class="text-muted font-14 mb-3">
+                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut corrupti incidunt expedita ea! Aut amet explicabo nisi suscipit repellendus, perferendis culpa
+                </p>
+                <div class="d-flex justify-content-end mb-2">
+                    <button type="button" class="btn btn-outline-secondary btn-sm border"         data-bs-toggle="modal" data-bs-target="#grupalModal" 
+                    onclick="grupalModal('{% url 'dashboard_app:nuevo_grupal' %}')">
+                    <!--url 'dashboard_app:nuevo_plazo'-->
+                    Nuevo
+                    </button>
+                </div>
+                
+                <table id="responsive-datatable" class="table dt-responsive nowrap table-hover">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Participantes</th>
+                      <th>Monto</th>
+                      <!-- <th>Opción 2</th>
+                      <th>Opción 3</th> -->
+                      <th class="">Acciones</th>
+                      <!-- <th>Username</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in grupal %}
+                    <tr>
+                      <td>{{item.nombre_grupal}}</td>
+                      <td>{{item.numero_participante}}</td>
+                      <td>${{item.monto_credito|floatformat:2}}</td>
+                    
+                      <td class="">
+                        <div class="dropdown">
+                          <a
+                            class="dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                          <i class="mdi mdi-playlist-plus" style="color: black; font-size:18px;"></i>
+                          </a>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary btn-sm"
+                              data-bs-toggle="modal"
+                              data-bs-target="#actualizarPlazoGrupal"
+                              onclick="actualizarModalGrupal('{% url 'dashboard_app:editar_grupal' pk=item.pk %}')"
+                            >
+                              Editar
+                            </button>
+
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary btn-sm"
+                              data-bs-toggle="modal"
+                              data-bs-target="#eliminarPlazoModal"
+                              onclick="eliminarModalPlazo('{% url 'dashboard_app:eliminar_plazo' pk=item.pk %}')"
+                            >
+                              Eliminar
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <!-- <td>@mdo</td> -->
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+        </div>
+       
+    </div>
+</div> <!-- end row -->
+<!--grupales-->
+
+
+<!--crear un nuevo producto-->
+<div
+  class="modal fade"
+  id="productosModal"
+  tabindex="-1"
+  aria-labelledby="productosModalLabel"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg"></div>
+</div>
+<!--fin de crear un nuevo producto-->
+
+<!--actualizar un nuevo producto-->
+<div
+  class="modal fade"
+  id="actualizarProductosModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg"></div>
+</div>
+<!--fin de actualizar un nuevo producto-->
+
+<!--eliminar un nuevo producto-->
+<div
+  class="modal fade"
+  id="eliminarProductosModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg"></div>
+</div>
+<!--fin de eliminar un nuevo producto-->
+
+
+<!--Modales Plazo-->
+<div
+  class="modal fade"
+  id="plazoModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg"></div>
+</div>
+
+<div
+  class="modal fade"
+  id="actualizarPlazoModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg"></div>
+</div>
+
+<div
+  class="modal fade"
+  id="eliminarPlazoModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg"></div>
+</div>
+
+<!--fin Modales Plazo-->
+
+<div
+  class="modal fade"
+  id="grupalModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg"></div>
+</div>
+
+<div
+  class="modal fade"
+  id="actualizarPlazoGrupal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% include "partials/footer.html" %}
+<!---->
+{% endblock content %}
+<!---->
+{% block extra_js %}
+
+<script>
+
+
+  //crear producto
+  function abrirModalEdicion(url) {
+    $("#productosModal").load(url, function () {
+      $(this).modal("show");
+    });
+  }
+  //editar producto
+  function actualizarModalEdicion(url) {
+    $("#actualizarProductosModal").load(url, function () {
+      $(this).modal("show");
+    });
+  }
+  //eliminar producto
+  function eliminarModalEdicion(url) {
+    $("#eliminarProductosModal").load(url, function () {
+      $(this).modal("show");
+    });
+  }
+
+  //crear plazo
+  function plazoModal(url) {
+    $("#plazoModal").load(url, function () {
+      $(this).modal("show");
+    });
+  }
+
+  //editar plazo
+  function actualizarModalPlazo(url) {
+    $("#actualizarPlazoModal").load(url, function () {
+      $(this).modal("show");
+    });
+  }
+
+  //eliminar plazo
+  function eliminarModalPlazo(url) {
+    $("#eliminarPlazoModal").load(url, function () {
+      $(this).modal("show");
+    });
+  }
+
+  function grupalModal(url) {
+    $("#grupalModal").load(url, function () {
+      $(this).modal("show");
+    });
+  }
+  function actualizarModalGrupal(url) {
+    $("#actualizarPlazoGrupal").load(url, function () {
+      $(this).modal("show");
+    });
+  }
+
+
+
+</script>
+
+<!-- third party js -->
+<script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-select/js/dataTables.select.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+<!-- third party js ends -->
+
+<!-- Datatables init -->
+<script src="{% static 'js/pages/datatables.init.js' %}"></script>
+
+
+<!---->
+
+
+{% endblock extra_js %}

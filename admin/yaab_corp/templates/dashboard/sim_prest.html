@@ -1,0 +1,633 @@
+{% extends "partials/layout-vertical.html" %}
+<!---->
+{% load static %}
+<!---->
+{%include "partials/topbar.html" with pagetitle="YAAB Servicios Financieros"%}
+{% block content %}
+
+
+
+<style>
+    .texto-color{
+        width: 28%;
+    }
+
+    .card {
+        width: 40%;
+        border: 1px solid #ddd; /* Borde delgada */
+        border-radius: 10px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        background-color: #333;
+    }
+    
+    .card2 {
+        width: 100%;       
+        border: 1px solid #ddd; /* Borde delgada */
+        border-radius: 10px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        font-weight: bold;
+        background-color: #c9c8c8;
+        /*background-color: #333;*/
+    }
+
+    texto-color{
+        color: #dfbb2f;
+    }
+    
+    .fondo{
+        color: #dfbb2f;
+    }
+
+    p{
+        color: #dfbb2f;
+    }
+    
+
+    .card-title {
+        color: #333; /* Color del título */
+        background-color: #a08413;
+    }
+
+    .card-text {
+        color: #666; /* Color del texto */
+    }
+
+
+    .number-range {
+        position: relative;
+        display: block;
+        font-size: 20px;
+        color: #d2ab4b;
+        font-weight: 400;
+        text-shadow: 0 0 1px rgba(255, 255, 255, 0.8);
+    }
+
+     .input-range-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .input-range-separator {
+        position: absolute;
+        height: 100%;
+        width: 1px;  /* Ancho de las líneas de separación */
+        background-color: #d2ab4b;  /* Color de las líneas de separación */
+        z-index: 1;
+    }
+
+
+    
+    .input-range {
+        width: 400px;
+        height: 40px;
+        -webkit-appearance: none;
+        background: #343a40;
+        outline: none;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
+        position: relative;
+        z-index: 2;
+        
+        
+    }
+    
+    .input-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 10px;
+        height: 70px;
+        background: #d2ab4b;
+        cursor: pointer;
+        border: 0px solid #343a40;
+        box-shadow: -407px 0 0 400px #d2ab4b;
+        z-index: 2;
+    }
+    
+    .parrado-simu{
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        text-shadow: 0 0 1px rgba(255, 255, 255, 0.8);
+
+    }
+
+
+    hr{
+        margin: 0;
+        padding: 0;
+    }
+
+
+
+    .color-orange{
+        color: #d2ab4b;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .boton{
+        background-color: #333;
+        border: #ddd 1px;
+        color: #cecbcb;
+        font-size: 15px;
+    }
+    .boton:hover{
+        background-color: #ddd;
+    }
+    /*
+    .parrado-simu {
+        border: 0px solid #ccc; 
+        border-radius: 5px;
+        padding: 10px; 
+        font-size: 18px;
+        margin: 10px 0; 
+        background-color: transparent; 
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+    */
+
+
+
+    
+</style>
+
+<div class="card ">
+    <div class="card-body">
+       
+        <h1 class="fondo">Simulador de Prueba</h1>
+       
+
+ 
+        <form method="post" class=""  id="simulador-form">
+        {% csrf_token %}
+
+            <div>
+                <label for="id_tipo_prestamo" class="number-range">Elige tu mejor opción: </label>
+                <span id="monto_seleccionado" class="number-range pb-2 ">$ 0</span>
+                <p class="fs-6 color-orange">Selecciona entre <span id="total_opciones"></span> opciones. Actualmente seleccionada: <span id="opcion_actual"></span></p>
+                <span class="fs-6 color-orange">
+                    * deslizate hacia tu derecha o izquierda para definir tu prestamo
+                </span>
+        </span>
+            </div>
+            <br>
+           
+
+            <div class="input-range-container input-range" id="dynamic-separators-container">
+                <!-- Barra de control de montos -->
+                {{ form.nombre_prestamo }}
+            </div>
+            
+            <br>
+            <br>
+            
+            <div class="d-none" >
+                <p > <span id="prestamo_tipo"></span></p>
+                
+                <p > <span id="nombre_prestamo_seleccionado"></span></p>
+                
+                <p > <span id="tipo_periodo"></span></p>
+                <p > <span id="plazo"></span></p>
+                <p > <span id="interes_ordinario"></span></p>
+                <p > <span id="interes_moratorio"></span></p>
+                <!-- <p>Monto: <span id="monto"></span></p> -->
+                <p > <span id="pago_mensual"></span></p>
+
+            </div>
+
+            <button type="submit" class="btn boton rounded btn-sm mt-2">Solicitar</button>
+        </form>
+
+        
+        
+
+    </div>
+
+</div>
+<!-- <p>Tipo de Préstamo:  form.instance.tipo_prestamo </p> -->
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card2">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Control de créditos</h4>
+               
+               
+                
+                <table id="responsive-datatable" class="table dt-responsive nowrap table-hover ">
+                  <thead>
+                    <tr>
+                      <th>Tipo prestamo</th>
+                      <th>Nombre</th>
+                      <th>Monto</th>
+                      <th>Periodo</th>
+                      <th>Plazo</th>
+                      <th>Interes ordinario</th>
+                      <th>Interes moratorio</th>
+                      <th>Pago mensual</th>
+
+                      <!-- <th>Opción 2</th>
+                      <th>Opción 3</th> -->
+                      <!-- <th class="">Acciones</th> -->
+                      <!-- <th>Username</th> -->
+                    </tr>
+                  </thead>
+                  <tbody >
+                    {% for item in tabla_prestamos %}
+                    <tr >
+                      <td>{{item.tipo_prestamo}}</td>
+                      <td>{{item.nombre_producto}}</td>
+                      <td>${{item.monto|floatformat:2}}</td>
+                      <td>{{item.tipo_periodo}}</td>
+                      <td>{{item.plazo}}</td>
+                      <td>{{item.interes_ordinario}}</td>
+                      <td>{{item.interes_moratorio}}</td>
+                      <td>{{item.pago_mensual}}</td>
+                    
+                      
+                      <!-- <td>@mdo</td> -->
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+        </div>
+       
+    </div>
+</div> <!-- end row -->
+
+
+
+
+
+
+        
+
+  
+{% endblock content %}
+
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var selectInput = $('#id_nombre_prestamo');  // Ajusta el ID según tu formulario
+
+        selectInput.change(function () {
+            var selectedOption = $(this).find('option:selected');
+            var inputValue = selectedOption.data('monto');  // Ajusta esto según cómo estés almacenando el monto en las opciones
+
+            if (inputValue !== undefined) {
+                $(this).attr('type', 'range');
+                $(this).attr('min', 0);  // Ajusta según tus necesidades
+                $(this).attr('max', inputValue * 2);  // Ajusta según tus necesidades
+                $(this).val(inputValue);
+            } else {
+                $(this).attr('type', 'text');
+            }
+        });
+    });
+</script>
+
+
+
+
+
+<script>
+    /*
+  document.addEventListener("DOMContentLoaded", function() {
+      var slider = document.getElementById("id_nombre_prestamo");
+      var formulario = document.getElementById("simulador-form");
+      var toatalOpcionSpan = document.getElementById("total_opciones");
+      var opcionActualSpan = document.getElementById("opcion_actual");
+      var montoSeleccionadoSpan = document.getElementById("monto_seleccionado");
+      var csrf_token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+
+      // Asumiendo que la lista de prestamos está definida en el template de Django
+      var prestamos = [
+          {% for prestamo in prestamos %}
+              { 'id': `{{ prestamo.id }}`, 'monto': ` $ {{ prestamo.monto|floatformat:2 }} ` },
+          {% endfor %}
+      ];
+
+      slider.setAttribute("min", 0);
+      slider.setAttribute("max", prestamos.length - 1);
+      slider.setAttribute("value", 0);
+
+      toatalOpcionSpan.textContent = prestamos.length;
+      opcionActualSpan.textContent = 'Ninguna';
+
+      slider.oninput = function () {
+          var index = parseInt(slider.value);
+          var montoSeleccionado = prestamos[index].monto;
+          montoSeleccionadoSpan.innerHTML = montoSeleccionado;          
+
+          opcionActualSpan.textContent = index + 1;
+
+          console.log('Monto:', montoSeleccionado, index);
+      };
+
+      // Nuevo oyente para el formulario
+      formulario.addEventListener("submit", function(event) {
+          event.preventDefault(); // Evitar que se envíe el formulario de manera estándar
+          var index = parseInt(slider.value); // Obtener el índice actual del slider
+          enviarDatosAlBackend(index);
+      });
+
+      // Función para enviar datos al backend
+      function enviarDatosAlBackend(index) {
+          $.ajax({
+              type: "POST",
+              url: "{% url 'dashboard_app:sim_prestamo' %}",
+              data: {
+                  'selected_index': index,
+                  'csrfmiddlewaretoken': csrf_token
+              },
+              success: function (data) {
+                  console.log("Datos enviados exitosamente al backend:", data);
+                  // Puedes realizar acciones adicionales después de enviar los datos al backend
+              },
+              error: function (error) {
+                  console.error("Error al enviar datos al backend", error);
+              },
+          });
+      }
+  });
+  */
+</script>
+
+<script>
+    /*
+    
+    const rangeInput = document.querySelector('#id_montos_seleccionados');
+    rangeInput.addEventListener('input', function() {
+        const selectedValues = Array.from(rangeInput.selectedOptions).map(option => option.value);
+        document.querySelector('#id_montos_seleccionados').value = selectedValues.join(',');
+    });
+    */
+</script>
+
+
+<script>
+    /*
+    function rangeSlide(value) {
+        
+        document.getElementById("rangeValue").innerHTML = value;
+    }
+    */
+</script>
+
+
+<script>
+    /*
+    document.addEventListener("DOMContentLoaded", function() {
+        var inputRangeContainer = document.getElementById("dynamic-separators-container");
+        var inputRange = inputRangeContainer.querySelector(".input-range");
+
+        // Obtener la cantidad de opciones en la barra de control de montos
+        var numOptions = inputRange.getAttribute("max") - inputRange.getAttribute("min") + 1;
+        console.log('soy opdtion',numOptions)
+
+        // Calcular el ancho de cada separador
+        var separatorWidth = 100 / (numOptions - 1);
+
+        
+        // Agregar líneas de separación dinámicamente
+        for (var i = 1; i < numOptions; i++) {
+            var separator = document.createElement("div");
+            separator.className = "input-range-separator";
+            separator.style.left = separatorWidth * i + "%";
+            inputRangeContainer.appendChild(separator);
+        }
+
+        // Integrar lógica JavaScript para actualizar la información dinámicamente
+        var slider = inputRange;
+        var prestamos = [
+            {% for prestamo in prestamos %}
+                {{prestamo.monto}}// ... (tu lógica para crear objetos de prestamo) ...
+            {% endfor %}
+        ];
+
+        var montoSeleccionadoSpan = document.getElementById("monto_seleccionado");
+        var tipoPrestamoSpan = document.getElementById("prestamo_tipo");
+        // ... (otros elementos Span)
+
+        slider.oninput = function () {
+            var index = parseInt(slider.value);
+            var montoSeleccionado = prestamos[index].monto;
+            var tipoPrestamo = prestamos[index].tipo_prestamo;
+            // ... (otras propiedades)
+
+            montoSeleccionadoSpan.innerHTML = montoSeleccionado;
+            tipoPrestamoSpan.innerHTML = tipoPrestamo;
+            // ... (actualizar otros elementos Span)
+
+            console.log('Monto:', montoSeleccionado, 'Tipo de préstamo:', tipoPrestamo);
+        };
+    });
+    */
+</script>
+
+
+
+<script>
+    /*
+    document.addEventListener("DOMContentLoaded", function() {
+        var slider = document.getElementById("id_tipo_prestamo");
+        var prestamos = [
+            {% for prestamo in prestamos %}
+                { 'id': {{ prestamo.id }}, 'monto': ` $ {{ prestamo.monto|floatformat:2 }} `, 'nombre_producto': ` <p class="parrado-simu">Nombre prestamo:  {{ prestamo.nombre_producto }} </p> <hr>`,'tipo_prestamo': ` <p class="parrado-simu">Tipo de prestamo: {{ prestamo.tipo_prestamo }} </p> <hr>`,'tipo_periodo': `<p class="parrado-simu">Periodo: {{ prestamo.tipo_periodo }} </p> <hr>`,'plazo': `<p class="parrado-simu">Plazo: {{ prestamo.plazo }}</p> <hr>`,'interes_ordinario': ` <p class="parrado-simu">Interes ordinario: {{ prestamo.interes_ordinario }} </p> <hr>`,'interes_moratorio': `<p class="parrado-simu">Interes moratorio: {{ prestamo.interes_moratorio }} </p> <hr>`,'pago_mensual': `<p class="parrado-simu">Pago mensual:  $ {{ prestamo.pago_mensual }} </p>` },
+            {% endfor %}
+        ];
+        console.log('prestamos', prestamos);
+
+        var toatalOpcionSpan=document.getElementById("total_opciones");
+        var opcionActualSpan=document.getElementById("opcion_actual");
+        
+        var montoSeleccionadoSpan = document.getElementById("monto_seleccionado");
+        var tipoPrestamoSpan = document.getElementById("prestamo_tipo");
+        var nombrePrestamoSpan = document.getElementById("nombre_prestamo_seleccionado");
+        var tipoPeriodSpan = document.getElementById("tipo_periodo");
+        var plazoPrestamoSpan = document.getElementById("plazo");
+        var interesOrdinarioSpan = document.getElementById("interes_ordinario");
+        var interesMoratorioSpan = document.getElementById("interes_moratorio");
+        var pagoMensualSpan = document.getElementById("pago_mensual");
+
+        slider.setAttribute("min", 0);
+        slider.setAttribute("max", prestamos.length - 1);
+        slider.setAttribute("value", 0);
+
+        toatalOpcionSpan.textContent = prestamos.length;
+        opcionActualSpan.textContent = 'Ninguna';
+        
+
+        slider.oninput = function () {
+            var index = parseInt(slider.value);
+            var montoSeleccionado = prestamos[index].monto;
+            var tipoPrestamo = prestamos[index].tipo_prestamo;
+            var nombrePrestamo = prestamos[index].nombre_producto;
+            var tipoPeriodo = prestamos[index].tipo_periodo;
+            var plazoPrestamo = prestamos[index].plazo;
+            var interesOrdinario = prestamos[index].interes_ordinario;
+            var interesMoratorio = prestamos[index].interes_moratorio;
+            var pagoMensual = prestamos[index].pago_mensual;
+
+            montoSeleccionadoSpan.innerHTML = montoSeleccionado;
+            tipoPrestamoSpan.innerHTML = tipoPrestamo;
+            nombrePrestamoSpan.innerHTML = nombrePrestamo;
+            tipoPeriodSpan.innerHTML = tipoPeriodo;
+            plazoPrestamoSpan.innerHTML = plazoPrestamo;
+            interesOrdinarioSpan.innerHTML = interesOrdinario;
+            interesMoratorioSpan.innerHTML = interesMoratorio;
+            pagoMensualSpan.innerHTML = pagoMensual;
+
+
+            opcionActualSpan.textContent = index + 1;
+
+            console.log('Monto:', montoSeleccionado, 'Nombre del préstamo:', nombrePrestamo,plazoPrestamo,tipoPeriodo);
+        };
+    });
+
+    */
+</script>
+
+<script>
+
+    /*
+    var slider = document.getElementById("id_tipo_prestamo");
+    var montos = [
+        {% for monto in montos_prestamo %}
+            {{ monto }},
+        {% endfor %}
+    ];
+    console.log('hola',montos);
+    var montoSeleccionadoSpan = document.getElementById("monto_seleccionado");
+
+    slider.setAttribute("min", Math.min(...montos));
+    slider.setAttribute("max", Math.max(...montos));
+    slider.setAttribute("value", Math.min(...montos));
+
+    slider.oninput = function() {
+      // Actualizar el valor seleccionado
+      //montoSeleccionadoSpan.innerHTML = slider.value;
+        var montoCercano = montos.reduce(function(prev, curr) {
+            return (Math.abs(curr - slider.value) < Math.abs(prev - slider.value) ? curr : prev);
+        });
+
+        montoSeleccionadoSpan.innerHTML = montoCercano;
+        slider.value = montoCercano;
+      
+      // Otra lógica adicional según sea necesario
+      console.log(slider.value);
+    };
+    */
+  </script>
+
+
+<script>
+
+    /*
+    function actualizarDetallesPrestamo(value) {
+        // Actualiza el valor seleccionado en el span
+        $("#selected_value").text(value);
+        
+        var tipoPrestamoId = value;
+        $.ajax({
+            url: "/index/obtener_detalles_prestamo/",
+            type: "GET",
+            data: { tipo_prestamo_id: tipoPrestamoId },
+            success: function(response) {
+               
+
+
+                // Resto de la lógica para actualizar detalles
+                $("#tipo_prestamo").text(response.prestamo_tipo);
+                $("#nombre_producto").text(response.producto_nombre);
+                $("#monto").text(response.monto);
+                $("#tipo_periodo").text(response.periodo_tipo);
+                $("#plazo").text(response.plazo);
+                $("#interes_ordinario").text(response.ordinario_interes);
+                $("#interes_moratorio").text(response.moratorio_interes);
+                $("#pago_mensual").text(response.pago_mensual);
+            },
+            error: function(error) {
+                console.log("Error al obtener detalles del préstamo:", error);
+            }
+        });
+    }
+
+
+   
+
+    $(document).ready(function(){
+        
+        if ($("#id_tipo_prestamo").val()) {
+            actualizarDetallesPrestamo($("#id_tipo_prestamo").val());
+        }
+
+            
+        
+    });
+
+    */
+</script>
+
+
+
+ <script>
+    /*
+        $(document).ready(function(){
+            // Manejar el evento de cambio en el campo tipo_prestamo
+            $("#id_tipo_prestamo").change(function(){
+                var tipoPrestamoId = $(this).val();
+                // Realizar una petición AJAX para obtener los detalles del tipo de préstamo seleccionado
+                $.ajax({
+                    url: " url 'dashboard_app:obtener_detalles_prestamo' ",  // Reemplaza con la URL correcta de tu vista
+                    type: "GET",
+                    data: { tipo_prestamo_id: tipoPrestamoId },
+                    success: function(response) {
+                        // Actualizar los campos monto y plazo en el formulario con la respuesta recibida
+                        $("#tipo_prestamo").text(response.prestamo_tipo);
+                        $("#nombre_producto").text(response.producto_nombre);
+                        $("#monto").text(response.monto);
+                        $("#tipo_periodo").text(response.periodo_tipo);
+                        $("#plazo").text(response.plazo);
+                        $("#interes_ordinario").text(response.ordinario_interes);
+                        $("#interes_moratorio").text(response.moratorio_interes);
+                        $("#pago_mensual").text(response.pago_mensual);
+                    },
+                    error: function(error) {
+                        console.log("Error al obtener detalles del préstamo:", error);
+                    }
+                });
+            });
+        });
+        */
+    </script>
+
+
+<script>
+    /*
+    // Manejar el evento de cambio en el campo de selección
+    $('#id_tipo_prestamo').on('change', function () {
+        var montoSeleccionado = $(this).val();
+
+        // Realizar una solicitud Ajax para obtener la información relacionada con el monto
+        console.log('URL:', ' url "dashboard_app:info_prestamo" ');
+        $.ajax({
+            type: 'GET',
+            url: ' url "dashboard_app:info_prestamo" ',
+            data: {'monto': montoSeleccionado},
+            success: function (data) {
+                // Tu lógica aquí
+            },
+            error: function (xhr, status, error) {
+                console.error('Error en la solicitud:', error);
+            }
+        });
+    });
+    */
+</script>
+
+{% endblock extra_js %}

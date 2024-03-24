@@ -1,0 +1,762 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>YAAB | Soluciones</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="poner lo mas destacado" name="description" />
+    <meta content="Oswaldo_Herrera" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="">
+
+   
+    <link rel="stylesheet" href="{% static 'css/landing/bootstrap.min.css' %}" type="text/css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!--https://michalsnik.github.io/aos/-->
+    <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+    <!--Material Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.3.67/css/materialdesignicons.min.css" rel="stylesheet">
+    
+
+    <!-- Custom  sCss -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/style.css" /> -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/style.css" />
+    <style>
+      .image-head{
+        background-image: url('');
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .second-section{
+        background-color: #eeeeec;
+      }
+
+      .caja{
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      /*.counter {
+        font-size: 36px;
+        font-weight: bold;
+        text-align: center;
+      }*/
+
+      .text-sombra{
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+      }
+      
+      .counter {
+          /*background-color: #4CAF50;*/
+          color: black;
+          border-radius: 15px;
+          padding: 5px;
+          text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          text-align: center;
+      }
+
+      .count {
+          font-size: 40px;
+          font-weight: bold;
+          color: rgb(38, 37, 37)515;
+      }
+
+      .text {
+          font-size: 20px;
+          color: #161616;
+          margin-top: 5px;
+          text-transform: uppercase;
+      }
+
+
+
+      /* marquee*/
+
+    .container {
+      max-width: 100%; /* Define el ancho máximo del contenedor */
+      margin: 0 auto; /* Centra el contenedor en la página */
+      overflow: hidden; /* Evita que los elementos se salgan del contenedor */
+    }
+
+    #textoAnimado,
+    #textoAnimado2 {
+      width: calc(50% - 30px); /* Ajusta el ancho de los elementos animados */
+    }
+
+    #textoAnimado {
+      /*overflow: hidden;*/
+      position: relative;
+      width: 100%;
+      height: 100px;
+      
+       /* La animación dura 5 segundos y es infinita */
+      
+    }
+
+    .postal{
+      border-radius: 50px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin-right: 15px;
+      max-width: calc(80% - 30px);
+      box-sizing: border-box;
+      animation: moverTexto 50s linear infinite;
+    }
+
+    @keyframes moverTexto {
+      0% { left: 0; }
+      50% { left: calc(100% - 500px); } /* El texto se moverá hasta la derecha*/
+      100% { left: 0; }
+    } 
+
+    .postal:hover{
+      box-shadow: 0 4px 10px #E5BD63;
+    }
+
+    #textoAnimado2 {
+      /*overflow: hidden;*/
+      position: relative;
+      width: 100%;
+      height: 100px;
+      
+      /* La animación dura 5 segundos y es infinita */
+    }
+
+    .postal2{
+      border-radius: 50px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin-right: 15px;
+      max-width: calc(80% - 30px);
+      box-sizing: border-box;
+      animation: moverTexto2 50s linear infinite;
+    }
+
+    @keyframes moverTexto2 {
+      0% { left: calc(100% - 500px); } /* Inicia desde la derecha */
+      50% { left: 0; } /* El texto se moverá hacia la izquierda */
+      100% { left: calc(100% - 500px); } /* Vuelve a la posición inicial a la derecha */
+    }
+    .postal2:hover{
+      box-shadow: 0 4px 10px #E5BD63;
+    }
+
+
+    @media only screen and (min-width:320px) and (max-width:768px){
+      .btn-wsp{
+        width:63px;
+        height:63px;
+        line-height: 66px;
+      }
+
+      .image-head{
+        background-image: url('');
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .texto-mobile{
+        color: #FFF !important;
+        
+      }
+      .tamaño-mobile-beneficios{
+        width: 50% !important;
+        margin-left: 90px;
+        
+      }
+
+      .flex-mobile{
+        display: flex !important;
+        flex-direction: column;
+      }
+
+      .coment-mobile{
+        padding-bottom: 100px !important;
+      }
+
+      #textoAnimado{
+        padding-bottom: 50px !important;
+      } 
+
+      #textoAnimado2 {
+      overflow: hidden;
+      position: relative;
+      margin-top: 20px;
+      
+      /* La animación dura 5 segundos y es infinita */
+      }
+
+    }
+
+
+    .imagen {
+      width: 100%;
+      height: 250px;
+      position: relative;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    /*.imagen:hover {
+      transform: rotateY(180deg);
+    }*/
+
+    .imagen img, .texto-detras {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      backface-visibility: hidden;
+    }
+
+    .texto-detras {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #595764;
+      color: #E1B64E;
+      font-weight: bold;
+      transform: rotateY(180deg);
+    }
+
+    .imagen.volteada {
+      transform: rotateY(180deg);
+    }
+
+
+
+    </style>
+  </head>
+
+  <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="78">
+    <!--Navbar Start-->
+    <nav
+      class="navbar navbar-expand-lg fixed-top navbar-custom sticky-dark"
+      id="sticky"
+    >
+      <div class="container-fluid">
+        <!-- LOGO -->
+        <a class="logo text-uppercase" href="index.html">
+         
+          <img
+            src=""
+            alt=""
+            class="logo-dark"
+            height="40"
+          />
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="true"
+          aria-label="Toggle navigation"
+        >
+          <i class="mdi mdi-menu"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mx-auto navbar-center " id="mySidenav">
+            <li class="nav-item">
+              <a href="#home" class="nav-link h4">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a href="#features" class="nav-link h4">Soluciones Financieras</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a href="#demo" class="nav-link">Demos</a>
+            </li> -->
+            <li class="nav-item">
+              <a href="#pricing" class="nav-link h4">Productos</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a href="#faq" class="nav-link">Faqs</a>
+            </li> -->
+            <!-- <li class="nav-item">
+              <a href="#clients" class="nav-link">Clients</a>
+            </li> -->
+            <li class="nav-item">
+              <a href="#contacto" class="nav-link h4">Contacto</a>
+            </li>
+          </ul>
+          <!--url 'login'  -->
+          <a href="{% url 'account_login' %}" class="btn btn-secondary border navbar-btn">Login</a>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- home start bg-gradient-->
+    <section class="bg-home image-head" id="home">
+      <div class="home-center ">
+        <div class="home-desc-center">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-lg-6"></div>            
+            
+              <div class="col-lg-6 col-md-10  ">
+                <div class="home-title mo-mb-20">
+                  <h1 class="mb-4 text-black mt-5 float-right texto-mobile">
+                    Somos una institución dedicada a la transformación de vidas a través de la generación de oportunidades financieras.
+                  </h1>
+                  <!--url 'user_app:registro'-->
+                  <a
+                    href="{% url 'account_signup' %}"
+                    type="submit"
+                    class="btn btn-secondary border rounded mt-2"
+                    style="margin-top: -100px"
+                  > 
+                    Quiero mi crédito
+                  </a>
+
+                  <a
+                    href="{% url 'user_app:grupal' %}"
+                    type="submit"
+                    class="btn btn-secondary border rounded mt-2"
+                    style="margin-top: -100px"
+                  > 
+                    Crédito grupal
+                  </a>
+                
+                </div>
+              </div>
+              <!--col-xl-5 offset-xl-2 col-lg-5 offset-lg-1 col-md-7 place it--> 
+              <div class="col-lg-6 col-sm-12 d-none">
+                <div class="home-img position-relative">
+                  <div class="">
+                    <h1 class="mb-5 text-black mt-5 ">
+                      Somos una institución dedicada a la transformación de vidas a través de la generación de oportunidades financieras.
+                    </h1>
+                  </div>
+                  
+                  <form>
+                    <div class="row">
+                      <div class="col">
+                        <!--url 'user_app:registro'-->
+                        <a
+                          href="{% url 'user_app:registro' %}"
+                          type="submit"
+                          class="btn btn-secondary border rounded"
+                          style="margin-top: -100px"
+                        > 
+                          Quiero mi credito
+                        </a>
+                      </div>
+                    </div>
+                  </form>
+                  <!-- <img src="../../static/landing/images/header.png" alt="" class="home-first-img" /> -->
+                  <!-- <img
+                    src="images/home-img.png"
+                    alt=""
+                    class="home-second-img mx-auto d-block"
+                  />
+                  <img
+                    src="images/home-img.png"
+                    alt=""
+                    class="home-third-img"
+                  /> -->
+                </div>
+              </div>
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- end container-fluid -->
+        </div>
+      </div>
+    </section>
+    <!-- home end -->
+
+    <!-- clients start -->
+    <section class="second-section mb-3">
+      <div class="container-fluid ">
+        <div class="clients  bg-white shadow ">
+          <div class="row m-0 caja ">
+            <div class="col-md-4 m-0 ">
+              <!-- <div class="client-images"> -->
+                <div class="card text-center m-0 "  >                 
+                  <div class="card-body m-0 " data-aos="fade-up"    data-aos-duration="2000">
+                    <img class="w-25 " src="../../static/images/landing/icon_web.png" alt="">
+                    <h5 class="card-title ">1.- Solicita tu préstamo en linea al instante </h5>                    
+                  </div>
+                </div>
+              <!-- </div> -->
+            </div>
+            <div class="col-md-4 m-0">
+              <!-- <div class="client-images"> -->
+                <div class="card text-center m-0"  >                 
+                  <div class="card-body m-0" data-aos="fade-up"    data-aos-duration="2000">
+                    <img class="w-25" src="../../static/images/landing/watch.png" alt="">
+                    <h5 class="card-title">2.- Procesamos tu solicitud de préstamo en linea</h5>                    
+                  </div>
+                </div>
+              <!-- </div> -->
+            </div>
+            <div class="col-md-4 m-0">
+              <!-- <div class="client-images"> -->
+                <div class="card text-center m-0" >                 
+                  <div class="card-body m-0" data-aos="fade-up"    data-aos-duration="2000">
+                    <img class="w-25" src="../../static/images/landing/money.png" alt="">
+                    <h5 class="card-title">3.- Te haremos una transferencia a tu cuenta bancaria</h5>                    
+                  </div>
+                </div>
+              <!-- </div> -->
+            </div>
+            
+          </div>
+          <!-- end row -->
+        </div>
+      </div>
+      <!-- end container-fluid -->
+    </section>
+    <!-- clients end -->
+
+    <!-- features start -->
+    <section class="section-sm second-section border-bottom " id="features"  data-aos="fade-up"    data-aos-duration="2000">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <div class=" mb-4 pb-1"  >
+              <img style="width: 100%;" src="" alt="">
+              <!-- <h3 class="mb-3">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              </h3>
+              <p class="text-muted">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
+                magnam nobis dolore et optio rerum repellat nulla, illo
+                excepturi accusantium nesciunt autem architecto quisquam dolorum
+                labore consectetur ad molestiae impedit.
+              </p> -->
+            </div>
+          </div>
+          <div class="col-lg-6 " style="padding-top: 120px;" >
+            <h1 class="text-center text-sombra">Con nosotros...</h1>
+            <p class=" text-center h4 text-sombra">
+                Sin trucos, solo simples y claros términos que nos convierten en tu solución ideal de financiación, nos aseguramos de proteger tus datos de acuerdo a nuestros estándares de seguridad.
+            </p>
+          </div>
+
+          
+        </div>
+        
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container-fluid -->
+
+    </section>
+    <!-- features end -->
+
+    <!-- available demos start -->
+    <section class="section second-section pt-3 pb-3" id="demo">
+      <div class="container-fluid">
+        <div class="text-center">
+          <h2 class="text-sombra">Beneficios</h2>
+        </div>
+        
+        <div class="row ">
+          <div class="col-lg-2 mx-auto" style="margin-right: 80px;" data-aos="fade-up"    data-aos-duration="2000">
+            <img class="w-100  tamaño-mobile-beneficios " src="../../static/images/landing/watch.png" alt="">
+            <h5 class="card-title text-center">Tu dinero en 24 horas   </h5> 
+            <p class="text-center  h6" style="letter-spacing: 1px;" >INE / Comprobante de domicilio / Comprobante de ingresos / AVAL con los mismos requisitos.</p>                        
+          </div>
+          <div class="col-lg-2 mx-auto" style="margin-right: 80px;" data-aos="fade-up"    data-aos-duration="2000">
+            <img class="w-100 tamaño-mobile-beneficios" src="../../static/images/landing/money.png" alt="">
+            <h5 class="card-title text-center">Línea de crédito   </h5> 
+            <p class="text-center  h6" style="letter-spacing: 1px;"> Usa, paga y vuelve a disponer de tu dinero.</p>                        
+          </div>
+          <div class="col-lg-2 mx-auto" style="margin-right: 80px;" data-aos="fade-up"    data-aos-duration="2000">
+            <img class="w-100 tamaño-mobile-beneficios" src="../../static/images/landing/confiar.png" alt="">
+            <h5 class="card-title text-center">Nos adaptamos a ti </h5> 
+            <p class="text-center  h6" style="letter-spacing: 1px;"> Haz tus pagos quincenales o liquida antes para ahorrar intereses.</p>                        
+          </div>
+          <div class="col-lg-2 mx-auto" style="margin-right: 80px;" data-aos="fade-up"    data-aos-duration="2000">
+            <img class="w-100 tamaño-mobile-beneficios" src="../../static/images/landing/optimo.png" alt="">
+            <h5 class="card-title text-center">Al pagar a tiempo </h5> 
+            <p class="text-center  h6" style="letter-spacing: 1px;"> Accede a mejoras en tasa y aumentos en tu linea de crédito, depositamos directo en tu cuenta bancaria.</p>                        
+          </div>
+        </div>
+        
+      </div>
+      <!-- end container-fluid -->
+    </section>
+    
+
+    <!-- pricing start -->
+    <section class="section pb-0 bg-gradient" id="pricing">
+      
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <div class="text-center mb-4">
+              <h3 class="text-white">Nuestros Productos</h3>
+              <p class="text-white-50">
+                Solicita tu préstamo en línea e impulsa tus finanzas con los créditos que tenemos disponibles para ti.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- end row -->
+
+        <div class="row justify-content-center ">
+          <div class="col-xl-12 mb-3">
+            <div class="row justify-content-between">
+              <div class="col-lg-3" onclick="voltearImagen(this)">
+                <div class="card imagen"   >
+                    <img src=""  class="card-img-top " alt="..." >
+                    <div class="texto-detras ">
+                      <img src="" alt="">
+                                           
+                    </div>
+                    <div class="card-body d-none">
+                        <h5 class="card-title">Titulo</h5>
+                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit ikuyhtre. </p>
+                        <!-- <a href="#" class="btn btn-secondary">Go somewhere</a> -->
+                    </div>
+                </div>
+              </div>
+              <!-- end col -->
+
+              <div class="col-lg-3" onclick="voltearImagen(this)">
+                <div class="card imagen" style="width: 100%; " >
+                    <img src=""  class="card-img-top " alt="...">
+                    <div class="texto-detras">
+                      <img src="" alt="">
+                    </div>
+                    <div class="card-body d-none">
+                        <h5 class="card-title">Titulo</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit ikuyhtre. </p>
+                        <!-- <a href="#" class="btn btn-secondary">Go somewhere</a> -->
+                    </div>
+                </div>
+              </div>
+              <!-- end col -->
+
+              <div class="col-lg-3" onclick="voltearImagen(this)">
+                <div class="card imagen d-none" style="width: 100%; " >
+                    <img src=""  class="card-img-top " alt="...">
+                    <div class="texto-detras">
+                      <img src="" alt="">
+                    </div>
+                    <div class="card-body d-none">
+                        <h5 class="card-title">Titulo</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit ikuyhtre. </p>
+                        <!-- <a href="#" class="btn btn-secondary">Go somewhere</a> -->
+                    </div>
+                </div>
+              </div>
+              <!-- end col -->
+
+               <div class="col-lg-3" onclick="voltearImagen(this)">
+                <div class="card imagen d-none" style="width: 100%; " >
+                    <img src=""  class="card-img-top  " alt="...">
+                    <div class="texto-detras">
+                      <img src="" alt="">
+                    </div>
+                    <div class="card-body d-none">
+                        <h5 class="card-title">Titulo</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit ikuyhtre. </p>
+                        <!-- <a href="#" class="btn btn-secondary">Go somewhere</a> -->
+                    </div>
+                </div>
+              </div>
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- end col-xl-10 -->
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container-fluid -->
+    </section>
+    <!-- pricing end   como: -->
+    <section class="second-section">
+
+      <div class="row w-100 p-3 flex-mobile">
+        <div class="col"> 
+          <p class="h3 text-dark text-center ">
+            Domicilia tus pagos de tu línea de crédito y obtén beneficios
+          </p>
+          <p class="h5 text-center">**Comunicate con un agente hoy mismo y solicita tu alta de pagos domiciliados**</p>
+        </div>
+        <div class="col"> 
+          <p class="h4 text-center counter">
+            Hemos impulsado los sueños de nuestros clientes otorgando  <span class="h3 count" id="count"> 0 </span>  prestamos.   
+          </p>
+        </div>
+
+      </div>
+      <!-- <div class="row second-section border-bottom"  data-aos="fade-up"    data-aos-duration="2000">
+        < class="col-6 p-4 counter"> 
+          <p class="h3 text-dark text-center ">
+            Domicilia tus pagos de tu línea de crédito y obtén beneficios
+          </p>
+          <p class="h4 text-center d-none">"Incumplir con tus pagos te puede generar comisiones e intereses moratorios,adquirir préstamos que sobrepasen tu capacidad financiera daña tu historial de crédito."
+          </p>
+          <p class="h5">***Comunicate con un agente hoy mismo y solicita tu alta de pagos domiciliados***</p> -->
+      
+
+
+    </section>
+
+    <section class="second-section " data-aos="fade-up"    data-aos-duration="2000">
+      <div class="container pt-2">
+
+        <div class="row pb-4 coment-mobile">
+          <div class="col d-flex ">
+            <div id="textoAnimado" class="postal d-flex">
+              <img  class="rounded-circle pt-2" style="width: 80px; height:80px;" src="../../static/images/landing/test.png" alt="">
+              <p class="pt-3">
+                "Excelente servicio al cliente. Rápidos, eficientes y amigables. ¡Mi préstamo personal fue aprobado rápidamente!"
+              </p>
+            </div>
+          </div>
+          <div class="col d-flex">
+            <div id="textoAnimado" class="postal d-flex">
+              <img  class="rounded-circle pt-2" style="width: 80px; height:80px;" src="../../static/images/landing/test_1.png" alt="">
+              <p class="pt-3">
+                "Me encantó la atención personalizada que recibí. El proceso fue simple y sin complicaciones, y obtuve mi préstamo personal justo cuando lo necesitaba."
+              </p>
+            </div>
+            
+          </div>
+        
+        </div>
+
+        <div class="row pb-4 coment-mobile">
+
+          <div class="col d-flex ">
+            <div id="textoAnimado2" class="postal2 d-flex">
+              <img  class="rounded-circle pt-2" style="width: 80px; height:80px;" src="../../static/images/landing/test_5.png" alt="">
+              <p class="pt-3">
+              "El proceso en línea fue sencillo y el equipo de soporte fue muy útil en todo momento. ¡Altamente recomendado!"
+              </p>
+
+            </div>
+            
+          </div>
+          <div class="col d-flex ">
+            <div id="textoAnimado2" class="postal2 d-flex">
+              <img  class="rounded-circle pt-2" style="width: 80px; height:80px;" src="../../static/images/landing/test_3.png" alt="">
+              <p class="pt-3">
+                "La financiera me ayudó cuando otros lugares me negaron un préstamo personal debido a mi historial crediticio. "
+              </p>
+            </div>
+            
+          </div>
+
+        </div>
+          
+        
+      </div>
+
+    
+
+    <!-- <div id="" class="row  m-0 p-1 "> </div> -->
+
+    </section>
+
+    <!-- footer start -->
+    <footer class="bg-dark footer " >
+      <div class="container-fluid" id="contacto">
+        <div class="row mb-5">
+          <div class="col-lg-6">
+            <div class="pe-lg-4">
+              <div class="mb-4 d-flex  rounded p-1">
+                
+                <!-- <img src="{% static 'images/landing/yaab_logo_blanco.png' %}" alt="" width="100px" /> 
+                -->
+                
+              </div>
+              
+            </div>
+          </div>
+
+         
+
+          
+
+         
+
+          
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="float-start pull-none">
+              
+              <!-- <p class="text-white-50">2015 - 2020 © Ubold. Design by <a href="https://coderthemes.com/" target="_blank" class="text-white-50">Coderthemes</a> </p> -->
+            </div>
+            
+            </div>
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- container-fluid -->
+    </footer>
+    <!-- footer end -->
+
+    <!-- Back to top -->
+    <!-- <a href="#" class="back-to-top" id="back-to-top"> <i class="mdi mdi-chevron-up"> </i> </a> -->
+    <!-- Back to top -->
+    <a
+      href="#"
+      onclick="topFunction()"
+      class="back-to-top-btn btn btn-secondary  "
+      id="back-to-top-btn"
+      ><i class="mdi mdi-chevron-up "></i
+    ></a>
+        <!--whatsapp-->
+   
+    <!--whatsapp-->
+
+    <!-- javascript -->
+
+    <!-- <script src="js/bootstrap.bundle.min.js"></script> -->
+    <script src="{% static 'js/landing/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+
+    <!-- custom js -->
+    <!-- <script src="js/app.js"></script> -->
+    <script src="{% static 'js/landing/app.js' %}"></script>
+    
+    <script>
+
+      function voltearImagen(elemento) {
+        elemento.querySelector('.imagen').classList.toggle('volteada');
+      }
+
+    
+      
+    function empezarConteo(valor,idElemento,duracion){
+      const elemento = document.getElementById(idElemento);
+      const incremento = valor / duracion;
+      let contadorInical = 1000; 
+
+      const contadorActualizador = () => {
+
+        contadorInical += incremento;
+        console.log('hola soy buey');
+        elemento.innerText = Math.floor(contadorInical);
+
+        if(contadorInical < valor){
+          requestAnimationFrame(contadorActualizador);
+        }
+
+      };
+      contadorActualizador();
+
+    }
+    empezarConteo(4750 , "count", 1000);
+
+    </script>
+  </body>
+</html>
+

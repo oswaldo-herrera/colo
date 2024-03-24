@@ -1,0 +1,15 @@
+{% load i18n %}
+{% load allauth %}
+{% load socialaccount %}
+{% get_providers as socialaccount_providers %}
+{% if socialaccount_providers %}
+    <hr>
+    <!-- element h1  -->
+    <p>
+         {% translate "O directamente con google" %}
+    </p>
+       
+    <!-- endelement  -->
+    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    {% include "socialaccount/snippets/login_extra.html" %}
+{% endif %}

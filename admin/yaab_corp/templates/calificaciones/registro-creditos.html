@@ -1,0 +1,230 @@
+
+
+{% extends "dashboard/index.html" %}
+<!---->
+{% load static %}
+<!---->
+{% load humanize %}
+{% block title %}Calificaciones{% endblock title %}
+<!---->
+{% block extra_css %}
+
+
+
+<!-- third party css -->
+<link
+  href="{% static 'libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="{% static 'libs/datatables.net-select-bs5/css//select.bootstrap5.min.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<!-- third party css end -->
+
+{% endblock extra_css %}
+<!---->
+{% block topbar %}
+<!---->
+<!---->
+{% include "partials/topbar.html" with pagetitle="Creditos" %}
+<!---->
+{% endblock topbar %}
+<!---->
+{% block content %}
+
+<style>
+
+  .borde{
+    transition: box-shadow 0.5s ease-in-out;
+  }
+
+  .borde:hover{
+    box-shadow: 5px 3px 3px rgb(177, 177, 177);
+    border-radius: 10px;
+  }
+
+  .carta{
+    transition: background-color 0.6s ease-in-out;
+  }
+
+  .carta:hover{
+    background-color: rgb(113, 116, 116);
+    color: white;
+  }
+
+  .card-text {
+    /* Estilos originales aquí */
+    transition: background-color 0.8s ease-in-out, border-radius 0.8s ease-in-out, color 0.8s ease-in-out,text-align 0.8s ease-in-out;
+  }
+
+  .card-text:hover{
+    /*background-color: rgb(78, 81, 81);
+    border-radius: 5px;
+    color: white;*/
+    text-align: center;
+    
+  }
+
+</style>
+
+
+
+
+<!--plazo-->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Control de registros</h4>
+                <p class="text-muted font-14 mb-3">
+                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut corrupti incidunt expedita ea! Aut amet explicabo nisi suscipit repellendus, perferendis culpa
+                </p>
+
+                               
+                
+                <table id="datatable" class="table dt-responsive nowrap table-hover">
+                  <thead>
+                    <tr>
+                      <th>Contrato</th>
+                      <th>Cliente</th>
+                      <th>Crédito </th>
+                      <th>Pago</th>
+                      <th>Periodo</th>
+                      <th>Desembolso</th>
+                      <th>Primer pago</th>
+                      <th>Interes ordinario</th>
+                      <th>Interes moratorio</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                     
+                      {% for item in registros %}
+                    <tr>
+                        <td>{{item.numero_contrato}}</td>
+                        <td>
+                          {{item.cliente.first_name | upper}}
+                          {{item.cliente.last_name | upper}}
+                          
+                        </td>
+                        <td>$ {{item.cliente.simulador.amount|floatformat:2}}</td>
+                        <td>$ {{item.cliente.simulador.monthly_payment}}</td>
+                        <td>{{item.cliente.simulador.plazo_nombre}}</td>                        
+                        <td>{{item.cliente.fecha_solicitud|date:'d/m/Y'}}</td>
+                        <td>{{item.cliente.fecha_proximo_viernes|date:'d/m/Y'}}</td>
+                        <td>% {{item.cliente.simulador.interest_rate}}</td>
+                        <td>% {{item.cliente.simulador.interest_moratorio}}</td>  
+                    </tr>
+                    
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+        </div>
+       
+    </div>
+</div> <!-- end row -->
+<!--plazo-->
+
+<!--grupales-->
+<div class="row d-none">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Calificaciones</h4>
+                <p class="text-muted font-14 mb-3">
+                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut corrupti incidunt expedita ea! Aut amet explicabo nisi suscipit repellendus, perferendis culpa
+                </p>
+                <div class="d-flex justify-content-end mb-2">
+                    <button type="button" class="btn btn-outline-secondary btn-sm border"         data-bs-toggle="modal" data-bs-target="#grupalModal" 
+                    >
+                    <!--url 'dashboard_app:nuevo_plazo'-->
+                    Nuevo
+                    </button>
+                </div>
+                
+                <table id="key-table" class="table dt-responsive nowrap table-hover">
+                  <thead>
+                    <tr>
+                      <th>Cliente</th>
+                      <th>Calificación</th>
+                      <th>Código de validación</th>
+                      
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                  <tr>
+                    {% for usuario in usuarios %}
+                    <td>{{ usuario.user }}</td>
+                    {% endfor %}
+                    <td>{{ suma_total }}</td>
+                    <td></td>
+                    
+                  </tr>
+
+                  
+
+                    
+                  </tbody>
+                </table>
+            </div>
+        </div>
+       
+    </div>
+</div> <!-- end row -->
+<!--grupales-->
+
+
+
+{% include "partials/footer.html" %}
+<!---->
+{% endblock content %}
+<!---->
+{% block extra_js %}
+
+<script>
+
+
+
+
+</script>
+
+<!-- third party js -->
+<script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-select/js/dataTables.select.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+<!-- third party js ends -->
+
+<!-- Datatables init -->
+<script src="{% static 'js/pages/datatables.init.js' %}"></script>
+
+
+<!---->
+
+
+{% endblock extra_js %}

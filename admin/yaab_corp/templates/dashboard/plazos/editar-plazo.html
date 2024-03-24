@@ -1,0 +1,42 @@
+<!-- <h1>plazo</h1>
+
+<!-- <form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Guardar</button>
+</form> -->
+
+{% load static %}
+
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title" id="myModalLabel">Modal actualizar</h4>
+      <button type="button" class="close" data-bs-dismiss="modal">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <form
+      method="POST"
+      enctype="multipart/form-data"
+      action="{% url 'dashboard_app:editar_plazo' object.id %}"
+    >
+      {% csrf_token %}
+      <div class="modal-body">
+        <h1>Plazo</h1>
+
+        {{form.nombre_credito.label_tag}} {{form.nombre_credito}}
+        {{form.plazo_tiempo.label_tag}} {{form.plazo_tiempo}}
+        {{form.interes_credito.label_tag}} {{form.interes_credito}}
+        {{form.interes_moratorio.label_tag}} {{form.interes_moratorio}}
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
+          
+          <button type="submit" class="btn btn-primary">Editar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

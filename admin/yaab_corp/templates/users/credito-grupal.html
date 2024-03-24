@@ -1,0 +1,328 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% load allauth i18n socialaccount %}
+{% block head_title %}
+    {% trans "" %}
+    
+{% endblock head_title %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "partials/title-meta.html" with title="Registro | Yaab" %}
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                // Buscar el token CSRF
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    let csrftoken = getCookie('csrftoken');
+</script>
+
+<style>
+  
+
+    .btn-wsp{
+        position:fixed;
+        width:60px;
+        height:60px;
+        line-height: 63px;
+        bottom:25px;
+        right:25px;
+        background:#3b3d3c;
+        color:#FFF;
+        border-radius:50px;
+        text-align:center;
+        font-size:35px;
+        box-shadow: 0px 1px 10px rgba(0,0,0,0.3);
+        z-index:100;
+        transition: all 300ms ease;
+    }
+    .btn-wsp:hover{
+        background: #d5dbd7;
+    }
+    @media only screen and (min-width:320px) and (max-width:768px){
+        .btn-wsp{
+            width:63px;
+            height:63px;
+            line-height: 66px;
+      }
+    }
+</style>
+
+{% include "partials/head-css.html" %}
+
+
+
+<body class="loading " style="background: url('../../static/images/landing/yaab_corp_reg.png'); background-size:cover;"  >
+
+    <div class="account-pages mt-1 mb-2 bg-register"  >
+        <div class="container ">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-8 col-xl-8">
+                    <div class="text-center">
+                        <a href="{% url 'index' %}">
+                            <img src="" alt="" width="30%" class="mx-auto">
+                        </a>
+                        <h3 class="text-light">CRÉDITO GRUPAL</h3>
+                        
+                    </div>
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+             <div class="row">
+
+                <div class="col d-none">
+                    <div class="card ">  
+                        
+                        
+                        <!-- <form class="d-none" method="post" action=" url 'account_signup' ">
+                                 csrf_token 
+                               
+                                 signup_form.as_p 
+                      
+                                
+                                
+                                <button class="btn btn-secondary" type="submit">Confirmar credito grupal</button>
+                        </form> -->
+                       
+                        <div class="card-body p-4">
+                            <h4>Coordinador</h4>
+
+                            
+                            <!-- {{correo_form.estado_civil_grupal.label}}{{correo_form.estado_civil_grupal}}
+                            {{correo_form.genero_grupal.label}}{{correo_form.genero_grupal}}
+                            {{correo_form.nacionalidad_grupal.label}}{{correo_form.nacionalidad_grupal}}
+                            {{correo_form.pais_grupal.label}}{{correo_form.pais_grupal}} -->
+                            
+                            
+                            
+
+                            
+
+                        </div> <!-- end card-body -->
+                    </div>
+                    <!-- end card -->
+                </div>
+                <div class="col-6">
+                     <div class="card ">  
+                         <form method="post" action="{% url 'user_app:correo_grupo_credito' %}">
+                            {% csrf_token %}
+                        <div  class="card-body p-4 ">
+                            
+                            
+                            <h4>Registro de integrantes para el crédito grupal:</h4>
+
+
+                            <p>Ingresar datos del coordinador:</p>
+                            <!-- {{ correo_form.as_p }} -->
+                            
+                            {{correo_form.names_grupal.label}}{{correo_form.names_grupal}}
+                            {{correo_form.surnames_grupal.label}}{{correo_form.surnames_grupal}}
+                            {{correo_form.correo_coordinador.label}}{{correo_form.correo_coordinador}}
+                            
+                            {{correo_form.curp_texto_grupal.label}}{{correo_form.curp_texto_grupal}}
+                            {{correo_form.rfc_grupal.label}}{{correo_form.rfc_grupal}}
+                            {{correo_form.celular_coordinador.label}}{{correo_form.celular_coordinador}}
+
+                            <br>
+                           
+                           
+                            
+                            {{correo_form.participantes_numero.label}}{{correo_form.participantes_numero}}
+                            {{correo_form.monto_vacantes.label}}{{correo_form.monto_vacantes}}
+                            <!-- {{correo_form.email_credito_grupal.label}}{{correo_form.email_credito_grupal}}
+                            <h4>Ingresar correos electronicos:</h4>
+                            
+                            {{correo_form.segundo_email_grupal.label}}{{correo_form.segundo_email_grupal}}
+                            {{correo_form.tercero_email_grupal.label}}{{correo_form.tercero_email_grupal}}
+                            {{correo_form.cuarto_email_grupal.label}}{{correo_form.cuarto_email_grupal}}
+                            {{correo_form.quinto_email_grupal.label}}{{correo_form.quinto_email_grupal}}
+                            {{correo_form.sexto_email_grupal.label}}{{correo_form.sexto_email_grupal}}
+                            {{correo_form.septimo_email_grupal.label}}{{correo_form.septimo_email_grupal}}
+                            {{correo_form.octavo_email_grupal.label}}{{correo_form.octavo_email_grupal}}
+                            {{correo_form.noveno_email_grupal.label}}{{correo_form.noveno_email_grupal}}
+                            {{correo_form.decimo_email_grupal.label}}{{correo_form.decimo_email_grupal}}
+                            {{correo_form.onceavo_email_grupal.label}}{{correo_form.onceavo_email_grupal}} -->
+                            
+                            <div id="campos_correo_grupal">
+
+                            </div>
+                            
+                            <button class="btn btn-secondary mt-2" type="submit">Finalizar Registro</button>
+                        </form>
+
+                           
+
+                        </div> <!-- end card-body -->
+                    </div>
+                    <!-- end card -->
+                </div>
+                        
+            </div>
+
+           
+
+
+
+                    
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end page -->
+
+        <a href="{% url 'landing_app:landing' %}" class="btn-wsp mb-4" target="_blank">
+	    <i class="mdi mdi-home"></i>
+	  </a>
+
+    <!-- Vendor -->
+    {% include "partials/vendor.html" %}
+
+    <!-- App js -->
+    <script src="{% static 'js/app.min.js' %}"></script>
+
+    <script>
+
+
+        $(document).ready(function () {
+            $("#id_participantes_numero").change(function () {
+                var selectedProduct = $(this).val();
+                
+                if (selectedProduct) {
+                    // Realiza una solicitud AJAX al servidor para obtener el interés del producto seleccionado
+                    $.ajax({
+                    url: "{% url 'user_app:obtener_monto' %}", // Reemplaza con la URL correcta
+                    data: {
+                        monto_id: selectedProduct,
+                    },
+                    success: function (data) {
+                        // Rellena el campo interest_rate con el valor recibido
+                        $("#id_monto_vacantes").val(data.interest);
+                    },
+                    });
+                } else {
+                    // Borra el campo interest_rate si no hay selección
+                    $("#id_monto_vacantes").val("");
+                }
+            });
+        });
+
+        
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#id_participantes_numero").change(function () {
+                var selectedParticipants = parseInt($(this).find(":selected").text());
+                var camposCorreo = $("#campos_correo_grupal");
+                console.log(selectedParticipants)
+
+                // Elimina todos los campos de correo electrónico existentes
+                camposCorreo.empty();
+
+                // Crea y muestra los campos correspondientes al número seleccionado
+                for (var i = 1; i <= selectedParticipants; i++) {
+
+                    var label = $('<label>',{
+                        'for': 'email_' + i + '_grupal',
+                        'text': 'Parcticipante ' + i + ':'
+                    });
+
+                    var campoEmail = $('<input>', {
+                        'type': 'email',
+                        'class': 'form-control mb-2',
+                        'placeholder': 'correo electrónico...',
+                        'id': 'email_' + i + '_grupal',
+                        'name': 'email_' + i + '_grupal'
+                    });
+                    camposCorreo.append(label);
+                    camposCorreo.append(campoEmail);
+                }
+            });
+        });
+
+    </script>
+
+
+
+
+<script>
+    /*
+    $(document).ready(function () {
+        $("#id_participantes_numero").change(function () {
+
+            var selectedOption = $(this).find(":selected");
+            var selectedParticipants = selectedOption.val();
+            //var selectedParticipants = selectedOption.data("data-numero-participante");
+            //var selectedParticipants = parseInt($(this).find(":selected").data("numero-participante"));
+            //var selectedParticipants = parseInt($(this).find(":selected").text());
+            var camposCorreo = $("#campos_correo_grupal");
+            console.log(selectedParticipants)
+            //console.log(selectedOption)
+
+            // Elimina todos los campos de correo electrónico existentes
+            camposCorreo.empty();
+
+            // Crea y muestra los campos correspondientes al número seleccionado
+            for (var i = 1; i <= selectedParticipants; i++) {
+
+                var label = $('<label>',{
+                    'for': 'email_' + i + '_grupal',
+                    'text': 'Participante ' + i + ':'
+                });
+
+                var campoEmail = $('<input>', {
+                    'type': 'email',
+                    'class': 'form-control mb-2',
+                    'placeholder': 'correo electrónico...',
+                    'id': 'email_' + i + '_grupal',
+                    'name': 'email_' + i + '_grupal'
+                });
+                camposCorreo.append(label);
+                camposCorreo.append(campoEmail);
+            }
+        });
+    });
+    */
+
+    
+</script>
+<script>
+    //$(document).ready(function () {
+    //    $("#id_participantes_numero").change(function () {
+    //        var selectedParticipants = parseInt($(this).val());
+    //        // Oculta todos los campos de correo electrónico
+    //        for (var i = 1; i <= 11; i++) { // Ajusta el límite al número máximo de campos
+    //            $("#email_" + i + "_grupal").hide();
+    //        }
+    //        // Muestra solo los campos de correo electrónico correspondientes al número seleccionado
+    //        for (var i = 1; i <= selectedParticipants; i++) {
+    //            $("#email_" + i + "_grupal").show();
+    //        }
+    //    });
+    //});
+</script>
+   
+   
+</body>
+
+
+
+
+
+
+
+
+
+

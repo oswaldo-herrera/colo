@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Aviso|Privacidad</title>
+  </head>
+
+  <style>
+    body {
+      background-color: #ebeff2;
+      font-family: "Roboto", sans-serif;
+    }
+  </style>
+  <body>
+    <div class="row mx-auto">
+      <div class="col-10 mx-auto">
+        <div class="text-end">
+          <img src="{% static 'images/landing/financiera_logo.png' %}" alt="" />
+        </div>
+
+        <h3 class="fw-bolder pt-5 text-center">
+          CARTA DE AUTORIZACIÓN PARA LA CONSULTA EN BURÓ DE CRÉDITO
+        </h3>
+        <hr />
+
+        <p>
+          Por este conducto autorizo a YAAB Inversiones y servicios financieros,
+          S.A. de C.V. para que lleve a cabo investigaciones sobre el
+          comportamiento crediticio de la empresa que represento en las
+          Sociedades de Información Crediticia que estime conveniente. Así
+          mismo, declaro que conozco la naturaleza y alcance de la información
+          que se solicitará, del uso que YAAB Inversiones y servicios
+          financieros, S.A. de C.V. hará de tal información y de que esta podrá
+          realizar consultas periódicas de su historial crediticio, durante el
+          tiempo que mantenga relacion juridica con mi representada. Bajo
+          protesta de decir verdad manitiesto SER REPRESENTANTE LEGAL de la
+          Empresa mencionada en esta autorización.
+        </p>
+
+        <p>
+          Estoy consciente y acepto que este documento quede bajo propiedad de
+          YAAB Inversiones y servicios financieros, S.A. de C.V. para efectos de
+          control y cumplimiento del articulo 28 de la Ley para Regular a Las
+          sociedades de información Crediticia.
+        </p>
+
+        <p>
+          La vigencia de esta autorizacion permanecera mientras exista relacion
+          comercial entre el usuario y el cliente.
+        </p>
+
+        <!-- <a
+          href="{% url 'landing_app:landing' %}"
+          target="_blank"
+          style="text-decoration: none; color: black"
+        >
+          https://www.yaab.mx.
+        </a>
+        <br />
+        <br />
+        <h6>
+          No obstante, el aviso de privacidad siempre deberá observar las
+          disposiciones jurídicas aplicables.
+        </h6>
+        <br /><br /> -->
+
+        <h4 class="text-end pb-4 fw-bolder">
+          Fecha de actualización: Enero 2024
+        </h4>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

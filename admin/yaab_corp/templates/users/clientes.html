@@ -1,0 +1,145 @@
+<!-- Segundo HTML: confirmados.html -->
+
+{% extends "dashboard/index.html" %}
+{% load static %}
+
+{% block title %}Bandeja|Confirmados{% endblock title %}
+
+{% block extra_css %}
+<style>
+.text-sombra{
+    text-shadow: 0 2px 5px rgba(253, 253, 253, 0.336) !important;
+    color: white !important;
+}
+
+.text-sombra:hover{
+    background-color: white;
+    color: #343A40 !important;
+    
+}
+
+.text-sombra-unique{
+    text-shadow: 0 2px 5px rgba(253, 253, 253, 0.336) !important;
+}
+</style>
+
+<!-- Aquí puedes cargar cualquier CSS adicional que necesites -->
+{% endblock extra_css %}
+
+{% block topbar %}
+{% include "partials/topbar.html" with pagetitle="Información Clientes" %}
+{% endblock topbar %}
+
+{% block content %}
+
+
+<div class="row">
+    {% for item in clientes %}
+    <div class="col-4">
+        
+            <div class="card " style="background-color: #343A40;">
+                <div class="text-center card-body ">
+                    
+                    <p class="text-muted font-13 mb-3  text-light p-1 text-sombra-unique">
+                        
+                        {{ curp.nombres }} {{ curp.apellidoPaterno }} {{ curp.apellidoMaterno }}
+
+                       Cliente:  {{item.first_name}} {{item.last_name}} {{item.second_name}}
+
+                    </p>
+            
+                    <div class="card-header " style="background-color: #343A40;" id="headingOne">
+                        <h5 class="m-0">
+                            <a
+                            class=" h6  text-sombra border border-light rounded-pill p-1"
+                            data-bs-toggle="collapse"
+                            href="#curp{{ forloop.counter }}"
+                            aria-expanded="true"
+                            >
+                            <i class="mdi  mdi-playlist-plus
+                            mt-1 text-light h5 "></i>
+                            Datos generados por la CURP
+                            </a>
+                        </h5>
+                    </div>
+
+                    <div id="curp{{ forloop.counter }}" class="collapse " aria-labelledby="headingOne"     data-bs-parent="#accordion" >
+                        <div class="card-body">
+                            <div class="text-start">
+                                <p class="text-muted font-13"><strong>CURP :</strong> <span class="ms-2">{{ curp.curp }}  {{item.curp_texto}}</span></p>
+
+                                <p class="text-muted font-13"><strong>SEXO :</strong> <span class="ms-2">{{ curp.sexo }}</span></p>
+
+                                <p class="text-muted font-13"><strong>Fecha de Nacimiento :</strong> <span class="ms-2">{{ curp.fechaNacimiento }}</span></p>
+
+                                <p class="text-muted font-13"><strong>País de Nacimiento:</strong> <span class="ms-2">{{ curp.paisNacimiento }}</span></p>
+
+                                <p class="text-muted font-13"><strong>Estado de Nacimiento:</strong> <span class="ms-2">{{ curp.estadoNacimiento }}</span></p>
+
+                                <p class="text-muted font-13"><strong>Documento Probatorio:</strong> <span class="ms-2">{{ curp.docProbatorio }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="card-header " style="background-color: #343A40;" id="headingOne">
+                        <h5 class="m-0">
+                            <a
+                            class=" h6 text-white text-sombra border border-light rounded-pill p-1"
+                            data-bs-toggle="collapse"
+                            href="#rfc{{ forloop.counter }}"
+                            aria-expanded="true"
+                            >
+                            <i class="mdi mdi-playlist-plus
+                            mt-1 text-light h5 "></i>
+                            Datos generados por el RFC
+                            </a>
+                        </h5>
+                    </div>
+
+                    <div id="rfc{{ forloop.counter }}" class="collapse " aria-labelledby="headingOne"     data-bs-parent="#accordion" >
+                        <div class="card-body">
+                            <div class="text-start">
+                                <p class="text-muted font-13"><strong>CURP :</strong> <span class="ms-2">{{ curp.curp }}</span></p>
+
+                                <p class="text-muted font-13"><strong>SEXO :</strong> <span class="ms-2">{{ curp.sexo }}</span></p>
+
+                                <p class="text-muted font-13"><strong>Fecha de Nacimiento :</strong> <span class="ms-2">{{ curp.fechaNacimiento }}</span></p>
+
+                                <p class="text-muted font-13"><strong>País de Nacimiento:</strong> <span class="ms-2">{{ curp.paisNacimiento }}</span></p>
+
+                                <p class="text-muted font-13"><strong>Estado de Nacimiento:</strong> <span class="ms-2">{{ curp.estadoNacimiento }}</span></p>
+
+                                <p class="text-muted font-13"><strong>Documento Probatorio:</strong> <span class="ms-2">{{ curp.docProbatorio }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        
+        
+    </div> <!-- end col -->
+    {% endfor %}
+</div>
+<!-- end row -->
+
+
+
+</div>
+
+{% include "partials/footer.html" %}
+
+{% endblock content %}
+
+{% block extra_js %}
+<!-- Aquí puedes cargar cualquier JS adicional que necesites -->
+{% endblock extra_js %}

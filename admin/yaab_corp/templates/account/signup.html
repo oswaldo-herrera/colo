@@ -1,0 +1,272 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% load allauth i18n socialaccount %}
+{% block head_title %}
+    {% trans "" %}
+    
+{% endblock head_title %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "partials/title-meta.html" with title="Registro | Yaab" %}
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                // Buscar el token CSRF
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    let csrftoken = getCookie('csrftoken');
+</script>
+
+<style>
+  
+
+    .btn-wsp{
+        position:fixed;
+        width:60px;
+        height:60px;
+        line-height: 63px;
+        bottom:25px;
+        right:25px;
+        background:#3b3d3c;
+        color:#FFF;
+        border-radius:50px;
+        text-align:center;
+        font-size:35px;
+        box-shadow: 0px 1px 10px rgba(0,0,0,0.3);
+        z-index:100;
+        transition: all 300ms ease;
+    }
+    .btn-wsp:hover{
+        background: #d5dbd7;
+    }
+    @media only screen and (min-width:320px) and (max-width:768px){
+        .btn-wsp{
+            width:63px;
+            height:63px;
+            line-height: 66px;
+      }
+    }
+</style>
+
+{% include "partials/head-css.html" %}
+
+
+
+<body class="loading " style="background: url('../../static/images/landing/yaab_corp_reg.png'); background-size:cover;"  >
+
+    <div class="account-pages mt-1 mb-2 bg-register"  >
+        <div class="container ">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-8 col-xl-8">
+                    <div class="text-center">
+                        <a href="{% url 'index' %}">
+                            <img src="{% static 'images/landing/financiera_logo.png' %}" alt="" width="30%" class="mx-auto">
+                        </a>
+                        
+                    </div>
+                    <div class="card">  
+
+                        <div class="card-body p-4">
+                            
+                            
+                            {% block content %}
+                                {% element h1 %}
+                                    {% trans "Sign Up" %}
+                                {% endelement %}
+                                <p>
+                                    {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
+                                </p>
+                                {% url 'account_signup' as action_url %}
+
+                               
+
+                                    {% element form form=form method="post"  action=action_url tags="entrance,signup" %}
+                                    {% slot body %}
+                                        {% csrf_token %}
+                                        {{form|crispy}}
+                                        <!-- element fields form=form unlabeled=True 
+                                        endelement  -->
+                                        {% if redirect_field_value %}
+                                            <input type="hidden"
+                                                name="{{ redirect_field_name }}"
+                                                value="{{ redirect_field_value }}" />
+                                        {% endif %}
+                                    {% endslot %}
+                                    {% slot actions %}
+                                    <form id="miFormulario">
+                                         <button type="submit"  class="btn btn-secondary" id="btnUbicacion">
+                                            {% trans "Sign Up" %}
+                                        </button>
+                                    </form>
+                                       
+                                            <!-- {% element button tags="prominent,signup" type="submit"%}
+                                            {% trans "Sign Up" %}
+                                            {% endelement %} -->
+                                        {% endslot %}
+                                    {% endelement %}
+                                
+                                <!-- include "socialaccount/snippets/login.html" with page_layout="entrance"  -->
+                            {% endblock content %}
+
+                            <form id="">
+                                <!-- Otros campos del formulario -->
+
+                                <!-- Botón para solicitar la ubicación -->
+                                <button class="btn btn-secondary d-none" type="submit" >Obtener Ubicación</button>
+                            </form>
+
+                        </div> <!-- end card-body -->
+                    </div>
+                    <!-- end card -->
+
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end page -->
+
+        <a href="{% url 'landing_app:landing' %}" class="btn-wsp mb-4" target="_blank">
+	    <i class="mdi mdi-home"></i>
+	  </a>
+
+    <!-- Vendor -->
+    {% include "partials/vendor.html" %}
+
+    <!-- App js -->
+    <script src="{% static 'js/app.min.js' %}"></script>
+
+
+
+    <script>
+
+        document.getElementById('btnUbicacion').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert('Tu navegador no soporta la geolocalización.');
+            }
+
+            let latitud = position.coords.latitude;
+            let longitud = position.coords.longitude;
+
+         
+            $.ajax({
+                type: "POST",
+                url: "{% url 'user_app:ubicacion' %}",  
+                data: { 'latitud': latitud, 'longitud': longitud },
+                beforeSend: function(xhr) {
+                    // Agregar el token CSRF en la solicitud
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                },
+                success: function (response) {
+                    console.log("Ubicación guardada en el backend.");
+                    document.getElementById('miFormulario').submit(); 
+                },
+                error: function (error) {
+                    console.error("Error al enviar la ubicación al backend:", error);
+                }
+            });
+            
+        });
+
+
+        document.getElementById('miFormulario').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert('Tu navegador no soporta la geolocalización.');
+            }
+        });
+
+        function showPosition(position) {
+            let latitud = position.coords.latitude;
+            let longitud = position.coords.longitude;
+
+         
+            $.ajax({
+                type: "POST",
+                url: "{% url 'user_app:ubicacion' %}",  
+                data: { 'latitud': latitud, 'longitud': longitud },
+                beforeSend: function(xhr) {
+                    // Agregar el token CSRF en la solicitud
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                },
+                success: function (response) {
+                    console.log("Ubicación guardada en el backend.");
+                    document.getElementById('miFormulario').submit(); 
+                },
+                error: function (error) {
+                    console.error("Error al enviar la ubicación al backend:", error);
+                }
+            });
+        }
+    </script>
+   
+
+
+    <!-- <script>
+
+        document.getElementById('btnUbicacion').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert('Tu navegador no soporta la geolocalización.');
+            }
+        });
+
+        function showPosition(position) {
+            // Aquí puedes enviar la posición al servidor (por ejemplo, mediante una petición AJAX a tu vista de Django)
+            let latitud = position.coords.latitude;
+            let longitud = position.coords.longitude;
+
+            // Ejemplo de cómo imprimir la posición en la consola
+            console.log('Latitud: ' + latitud + ', Longitud: ' + longitud);
+            // Aquí puedes enviar estos datos a tu backend de Django usando AJAX
+
+            $.ajax({
+            type: "POST",
+            url: "{% url 'user_app:ubicacion' %}",  // Actualiza esta URL con la ruta correcta de tu vista de Django
+            data: { 'latitud': latitud, 'longitud': longitud },
+            beforeSend: function(xhr) {
+                // Agregar el token CSRF en la solicitud
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            },
+            success: function (response) {
+                console.log("Ubicación guardada en el backend.");
+            },
+            error: function (error) {
+                console.error("Error al enviar la ubicación al backend:", error);
+            }
+        });
+        }
+
+    </script> -->
+   
+</body>
+
+
+
+
+
+
+
+
+
+

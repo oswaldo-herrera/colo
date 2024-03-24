@@ -1,0 +1,273 @@
+{% extends "partials/layout-vertical.html" %}
+<!---->
+{% load static %}
+<!---->
+{%include "partials/topbar.html" with pagetitle="YAAB Servicios Financieros"%}
+{% block content %}
+
+
+
+<style>
+    .texto-color{
+        width: 28%;
+    }
+
+    .card {
+        width: 40%;
+        border: 1px solid #ddd; /* Borde delgada */
+        border-radius: 10px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        background-color: #333;
+    }
+    
+    .card2 {
+        width: 100%;       
+        border: 1px solid #ddd; /* Borde delgada */
+        border-radius: 10px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        font-weight: bold;
+        background-color: #c9c8c8;
+        /*background-color: #333;*/
+    }
+
+    texto-color{
+        color: #dfbb2f;
+    }
+    
+    .fondo{
+        color: #dfbb2f;
+    }
+
+    p{
+        color: #dfbb2f;
+    }
+    
+
+    .card-title {
+        color: #333; /* Color del título */
+        background-color: #a08413;
+    }
+
+    .card-text {
+        color: #666; /* Color del texto */
+    }
+
+
+    .number-range {
+        position: relative;
+        display: block;
+        font-size: 20px;
+        color: #d2ab4b;
+        font-weight: 400;
+        text-shadow: 0 0 1px rgba(255, 255, 255, 0.8);
+    }
+
+     .input-range-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .input-range-separator {
+        position: absolute;
+        height: 100%;
+        width: 1px;  /* Ancho de las líneas de separación */
+        background-color: #d2ab4b;  /* Color de las líneas de separación */
+        z-index: 1;
+    }
+
+
+    
+    .input-range {
+        width: 400px;
+        height: 40px;
+        -webkit-appearance: none;
+        background: #343a40;
+        outline: none;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
+        position: relative;
+        z-index: 2;
+        
+        
+    }
+    
+    .input-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 10px;
+        height: 70px;
+        background: #d2ab4b;
+        cursor: pointer;
+        border: 0px solid #343a40;
+        box-shadow: -407px 0 0 400px #d2ab4b;
+        z-index: 2;
+    }
+    
+    .parrado-simu{
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        text-shadow: 0 0 1px rgba(255, 255, 255, 0.8);
+
+    }
+
+
+    hr{
+        margin: 0;
+        padding: 0;
+    }
+
+
+
+    .color-orange{
+        color: #d2ab4b;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .boton{
+        background-color: #333;
+        border: #ddd 1px;
+        color: #cecbcb;
+        font-size: 15px;
+    }
+    .boton:hover{
+        background-color: #ddd;
+    }
+    /*
+    .parrado-simu {
+        border: 0px solid #ccc; 
+        border-radius: 5px;
+        padding: 10px; 
+        font-size: 18px;
+        margin: 10px 0; 
+        background-color: transparent; 
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+    */
+
+
+
+    
+</style>
+
+<div class="card ">
+    <div class="card-body">
+       
+        <h1 class="fondo">Simulador</h1>
+       
+
+        <form method="post" class="" action="{% url 'dashboard_app:pruebas_simula' %}" id="simulador-forms">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <!-- <span id="selected_value_display"></span> -->
+
+            <button type="submit" class="btn boton rounded btn-sm mt-2">Solicitar</button>
+        </form>
+       
+
+        
+        
+
+    </div>
+
+</div>
+<!-- <p>Tipo de Préstamo:  form.instance.tipo_prestamo </p> -->
+
+
+
+
+        
+
+  
+{% endblock content %}
+
+{% block extra_js %}
+
+<script>
+    /*
+  document.addEventListener('DOMContentLoaded', function () {
+    var rangeInput = document.getElementById('id_montos_simulador');
+    var displayValue = document.getElementById('selected_value_display');
+
+    // Función para actualizar el valor seleccionado
+    function updateSelectedValue() {
+      var selectedValue = rangeInput.value;
+      displayValue.textContent = selectedValue;
+    }
+
+    // Llama a la función cuando el valor cambie
+    rangeInput.addEventListener('input', updateSelectedValue);
+
+    // Obtén los valores mínimo y máximo del rango
+    var minValue = parseInt(rangeInput.min);
+    var maxValue = parseInt(rangeInput.max);
+
+    // Calcula el paso (intervalo) del rango
+    var step = parseInt(rangeInput.step);
+
+    // Obtén la lista de montos desde el atributo data-montos del input
+    var montos = rangeInput.getAttribute('data-montos');
+    
+    // Convierte la lista de montos a un array
+    var montosArray = montos.split(',').map(function(item) {
+      return parseInt(item);
+    });
+
+    // Asigna los valores dinámicos al rango
+    rangeInput.min = Math.min(...montosArray);
+    rangeInput.max = Math.max(...montosArray);
+    rangeInput.step = step;
+
+    // Agrega la lista de montos como atributo data al input
+    rangeInput.setAttribute('data-montos', montos);
+
+    // Inicializa el valor al cargar la página
+    updateSelectedValue();
+  });
+
+  */
+</script>
+
+
+
+<script>
+  
+  /*  document.addEventListener('DOMContentLoaded', function () {
+    var rangeInput = document.getElementById('id_montos_simulador');
+    var displayValue = document.getElementById('selected_value_display');
+
+    // Verifica que los elementos existan antes de intentar acceder a ellos
+    if (rangeInput && displayValue) {
+      // Función para actualizar el valor seleccionado
+      function updateSelectedValue() {
+        var selectedValue = rangeInput.value;
+        displayValue.textContent = selectedValue;
+      }
+
+      // Llama a la función cuando el valor cambie
+      rangeInput.addEventListener('input', updateSelectedValue);
+
+      // Obtén los valores mínimo y máximo del rango
+      var minValue = parseInt(rangeInput.min);
+      var maxValue = parseInt(rangeInput.max);
+
+      // Calcula el paso (intervalo) del rango
+      var step = parseInt(rangeInput.step);
+
+      // Inicializa el valor al cargar la página
+      updateSelectedValue();
+
+      // Actualiza los atributos del rango con valores dinámicos
+      rangeInput.min = minValue;  // Establece el valor mínimo
+      rangeInput.max = maxValue;  // Establece el valor máximo
+      rangeInput.step = step;     // Establece el paso del rango
+    }
+  });
+
+  */
+</script>
+
+
+{% endblock extra_js %}
